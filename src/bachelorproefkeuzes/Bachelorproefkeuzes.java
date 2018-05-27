@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * @author Lennert
  */
 public class Bachelorproefkeuzes extends Application {
-    
+    //toevoegen voor git
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
