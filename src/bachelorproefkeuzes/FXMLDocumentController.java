@@ -23,8 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class FXMLDocumentController {
-    
-@FXML
+   
+    @FXML
     private AnchorPane hoofdmenu;
 
     @FXML
@@ -35,6 +35,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Button knopNaarBpToevoegen;
+    
+    @FXML
+    private AnchorPane lijstBp;
 
     @FXML
     private TableView<BP> bpTabel;
@@ -44,6 +47,9 @@ public class FXMLDocumentController {
 
     @FXML
     private TableColumn<BP, String> beschrijvingKolom;
+    
+    @FXML
+    private Label labelTitelLijst;
 
     @FXML
     private Button terugknopLijst;
@@ -77,13 +83,12 @@ public class FXMLDocumentController {
 
     @FXML
     void initialize() {
-        model = new BachelorproevenDB();
-        
+         model = new BachelorproevenDB();
+        hoofdmenu.setVisible(true);
         voegBPtoe.setOnAction(event -> voegBPToe());
-        vulTabel();
-        //knop om terug te gaan 
-        //knop om naar de bp te gaan
-        
+        //vulTabel();
+        knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabel();});
+        terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);});
 
     }
     
