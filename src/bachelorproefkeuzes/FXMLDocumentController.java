@@ -20,35 +20,57 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class FXMLDocumentController {
+    
+@FXML
+    private AnchorPane hoofdmenu;
 
     @FXML
-    private ResourceBundle resources;
+    private Button knopNaarLijstBp;
 
     @FXML
-    private URL location;
+    private Label labelHoofdmenu;
 
     @FXML
-    private Label label;
-
-    @FXML
-    private TextField titel;
-
-    @FXML
-    private TextArea beschrijvingen;
-
-    @FXML
-    private Button voegBPtoe;
+    private Button knopNaarBpToevoegen;
 
     @FXML
     private TableView<BP> bpTabel;
-    
+
     @FXML
     private TableColumn<BP, String> titelKolom;
 
     @FXML
     private TableColumn<BP, String> beschrijvingKolom;
+
+    @FXML
+    private Button terugknopLijst;
+
+    @FXML
+    private AnchorPane bpToevoegen;
+
+    @FXML
+    private TextField titel;
+
+    @FXML
+    private Button voegBPtoe;
+
+    @FXML
+    private TextArea beschrijvingen;
+
+    @FXML
+    private Label labelTitel;
+
+    @FXML
+    private Label labelBeschrijving;
+
+    @FXML
+    private Button terugknopBpToevoegen;
+
+    @FXML
+    private Label labelTitelBpToevoegen;
     
     
     private BachelorproevenDB model;
@@ -56,8 +78,12 @@ public class FXMLDocumentController {
     @FXML
     void initialize() {
         model = new BachelorproevenDB();
+        
         voegBPtoe.setOnAction(event -> voegBPToe());
         vulTabel();
+        //knop om terug te gaan 
+        //knop om naar de bp te gaan
+        
 
     }
     
