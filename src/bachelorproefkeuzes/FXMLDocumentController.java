@@ -158,6 +158,8 @@ public class FXMLDocumentController {
     @FXML
     private Button terugKeuzeT;
     
+    @FXML
+    private Label labelFoutKeuzeT;
     
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
@@ -172,6 +174,8 @@ public class FXMLDocumentController {
         lijstBp.setVisible(false);
         bpToevoegen.setVisible(false);
         lijstKeuze.setVisible(false);
+        keuzeToevoegen.setVisible(false);
+        labelFoutKeuzeT.setVisible(false);
         //vulTabel();
         refresh();
     }
@@ -207,8 +211,33 @@ public class FXMLDocumentController {
         comboboxKeuze1KeuzeT.setItems(bps);
         comboboxKeuze2KeuzeT.setItems(bps);
         comboboxKeuze3KeuzeT.setItems(bps);
+        
+        knopBevestigenKeuzeT.setOnAction(event ->{voegKeuzeToe();});
     }
        
+    public void voegKeuzeToe() {
+        String naam = comboboxNaamKeuzeT.getValue();
+        System.out.println("de naam is: "+naam);
+        String keuze1 = comboboxKeuze1KeuzeT.getValue();
+        String keuze2 = comboboxKeuze2KeuzeT.getValue();
+        String keuze3 = comboboxKeuze3KeuzeT.getValue();
+        String paswoord = textfieldPaswoordKeuzeT.getText();
+ 
+        if(modelKeuze.isHetWWJuist(naam, paswoord)==true) {
+            //het wachtwoord is correct
+            if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
+                //keuzes zijn allemaal verschillend
+                int punten = 0;
+                modelKeuze.voegKeuzesToe(naam, keuze1, punten);
+                modelKeuze.voegKeuzesToe(naam, keuze2, punten);
+                modelKeuze.voegKeuzesToe(naam, keuze3, punten);
+                initialize();
+            }
+            else {labelFoutKeuzeT.setVisible(true);}//verkeerde keuze}}
+        }
+        else{labelFoutKeuzeT.setVisible(true);}//verkeerde ww}}       
+    }
+    
     public void voegBPToe(){
         Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
                                                 beschrijvingen.getText());
@@ -218,6 +247,12 @@ public class FXMLDocumentController {
         vulTabelBp();
     }
     
+    public void voegBpToe() {
+        //checken wat er in de naamcombobox staan 
+        //het paswoord van deze naam vergelijken met het ingegeven ww
+        //controleren of er niet meerdere keren dezelfde proef is ingegeven
+        //als alles okee is, de drie verschillende keuzes doorgeven
+    }
     
     public void vulTabelBp() {
         ArrayList<Bachelorproef> alles = modelBp.getProeven();
