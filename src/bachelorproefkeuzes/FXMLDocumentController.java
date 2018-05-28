@@ -15,6 +15,8 @@ import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +40,9 @@ public class FXMLDocumentController {
     
     @FXML
     private Button knopNaarLijstKeuzes;
+    
+    @FXML
+    private Button knopNaarKeuzeToevoegen;
     
     @FXML
     private AnchorPane lijstBp;
@@ -111,13 +116,58 @@ public class FXMLDocumentController {
     @FXML
     private Button sorteerknopPunten;
     
+    @FXML
+    private AnchorPane keuzeToevoegen;
+
+    @FXML
+    private ComboBox<String> comboboxNaamKeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze1KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze2KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze3KeuzeT;
+
+    @FXML
+    private Label labelTitelKeuzeToevoegen;
+
+    @FXML
+    private Label labelNaamKeuzeToevoegen;
+
+    @FXML
+    private Label LabelKeuze1KeuzeToevoegen;
+
+    @FXML
+    private Label labelKeuze2KeuzeToevoegen;
+
+    @FXML
+    private Label labelKeuze3KeuzeToevoegen;
+
+    @FXML
+    private TextField textfieldPaswoordKeuzeT;
+
+    @FXML
+    private Label labelPaswoordKeuzeToevoegen;
+
+    @FXML
+    private Button knopBevestigenKeuzeT;
+
+    @FXML
+    private Button terugKeuzeT;
+    
     
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
+    private StudentDB modelStudent;
 
     @FXML
     void initialize() {
-         modelBp = new BachelorproevenDB();
+        modelBp = new BachelorproevenDB();
+        modelKeuze = new KeuzeDB();
+        modelStudent = new StudentDB();
         hoofdmenu.setVisible(true);
         lijstBp.setVisible(false);
         bpToevoegen.setVisible(false);
@@ -131,6 +181,7 @@ public class FXMLDocumentController {
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
         knopNaarBpToevoegen.setOnAction(ecent ->{hoofdmenu.setVisible(false);lijstBp.setVisible(false);bpToevoegen.setVisible(true);});
         knopNaarLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(false);lijstKeuze.setVisible(true);vulTabelKeuzeOpNaam();});
+        knopNaarKeuzeToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});
         //knoppen lijstBp
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
         //knoppen BPtoevoegen
@@ -141,8 +192,23 @@ public class FXMLDocumentController {
         sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
         sorteerknopPunten.setOnAction(event -> vulTabelKeuzeOpPunten());
         terugknopLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(true);lijstKeuze.setVisible(false);});
+        //knoppen keuzeToevoegen
+        knopBevestigenKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
+        terugKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
     }
     
+    public void keuzeToevoegen() {
+        //naam invullen in combobox+alle keuzes
+        //paswoord gedaan krijgen
+        ObservableList<String> namen = FXCollections.observableArrayList(modelStudent.fillCombo());
+        comboboxNaamKeuzeT.setItems(namen);
+        
+        ObservableList<String> bps = FXCollections.observableArrayList(modelBp.fillCombo());
+        comboboxKeuze1KeuzeT.setItems(bps);
+        comboboxKeuze2KeuzeT.setItems(bps);
+        comboboxKeuze3KeuzeT.setItems(bps);
+    }
+       
     public void voegBPToe(){
         Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
                                                 beschrijvingen.getText());

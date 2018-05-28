@@ -31,7 +31,7 @@ public class StudentDB {
         }
     }
     
-    public ArrayList<Student> getProeven(){ 
+    public ArrayList<Student> getStudenten(){ 
         try {
             String sql = "select * from student ORDER by naam";
             PreparedStatement stmt =
@@ -45,6 +45,25 @@ public class StudentDB {
                 Student student = new Student(naam, paswoord);
                 student.setId(id);
                 lijst.add(student);
+            }
+            stmt.close();
+            return lijst;
+        } catch (SQLException ex) {
+            Logger.getLogger(BachelorproevenDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ArrayList<String> fillCombo(){ 
+        try {
+            String sql = "select * from student ORDER by naam";
+            PreparedStatement stmt =
+                    connectie.prepareStatement(sql);
+            ResultSet results = stmt.executeQuery();
+            ArrayList<String> lijst = new ArrayList<>();
+            while(results.next()){
+                String naam = results.getString("naam");
+                lijst.add(naam);
             }
             stmt.close();
             return lijst;

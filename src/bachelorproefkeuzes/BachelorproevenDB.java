@@ -69,4 +69,24 @@ public class BachelorproevenDB {
             return null;
         }
     }
+    
+    public ArrayList<String> fillCombo(){
+        
+        try {
+            String sql = "select * from bp ORDER by titel";
+            PreparedStatement stmt =
+                    connectie.prepareStatement(sql);
+            ResultSet results = stmt.executeQuery();
+            ArrayList<String> lijst = new ArrayList<>();
+            while(results.next()){
+                String titel = results.getString("titel");
+                lijst.add(titel);
+            }
+            stmt.close();
+            return lijst;
+        } catch (SQLException ex) {
+            Logger.getLogger(BachelorproevenDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
