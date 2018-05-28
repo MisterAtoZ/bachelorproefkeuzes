@@ -37,6 +37,9 @@ public class FXMLDocumentController {
     private Button knopNaarBpToevoegen;
     
     @FXML
+    private Button knopNaarLijstKeuzes;
+    
+    @FXML
     private AnchorPane lijstBp;
 
     @FXML
@@ -78,32 +81,80 @@ public class FXMLDocumentController {
     @FXML
     private Label labelTitelBpToevoegen;
     
+    @FXML
+    private AnchorPane lijstKeuze;
+
+    @FXML
+    private Button terugknopLijstKeuzes;
+
+    @FXML
+    private Button sorteerknopNaam;
+
+    @FXML
+    private Button sorteerknopProef;
+
+    @FXML
+    private Label titelLijstKeuze;
+
+    @FXML
+    private TableView<KeuzeProp> tabelKeuze;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeNaam;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeProef;
+
+    @FXML
+    private TableColumn<KeuzeProp, Number> kolomKeuzePunten;
+
+    @FXML
+    private Button sorteerknopPunten;
     
-    private BachelorproevenDB model;
+    
+    private BachelorproevenDB modelBp;
+    private KeuzeDB modelKeuze;
 
     @FXML
     void initialize() {
-         model = new BachelorproevenDB();
+         modelBp = new BachelorproevenDB();
         hoofdmenu.setVisible(true);
-        voegBPtoe.setOnAction(event -> voegBPToe());
+        lijstBp.setVisible(false);
+        bpToevoegen.setVisible(false);
+        lijstKeuze.setVisible(false);
         //vulTabel();
-        knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabel();});
-        terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);});
-
+        refresh();
+    }
+    
+    public void refresh() {
+        //knoppen hoofdmenu
+        knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
+        knopNaarBpToevoegen.setOnAction(ecent ->{hoofdmenu.setVisible(false);lijstBp.setVisible(false);bpToevoegen.setVisible(true);});
+        knopNaarLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(false);lijstKeuze.setVisible(true);vulTabelKeuzeOpNaam();});
+        //knoppen lijstBp
+        terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
+        //knoppen BPtoevoegen
+        voegBPtoe.setOnAction(event -> voegBPToe());
+        terugknopBpToevoegen.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
+        //Knoppen lijstKeuzes
+        sorteerknopNaam.setOnAction(event -> vulTabelKeuzeOpNaam());
+        sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
+        sorteerknopPunten.setOnAction(event -> vulTabelKeuzeOpPunten());
+        terugknopLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(true);lijstKeuze.setVisible(false);});
     }
     
     public void voegBPToe(){
         Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
                                                 beschrijvingen.getText());
-        model.voegToe(nieuw);
-        ArrayList<Bachelorproef> alles = model.getProeven();
+        modelBp.voegToe(nieuw);
+        ArrayList<Bachelorproef> alles = modelBp.getProeven();
         voegBPtoe.setText(alles.size() + " proeven");
-        vulTabel();
+        vulTabelBp();
     }
     
     
-    public void vulTabel() {
-        ArrayList<Bachelorproef> alles = model.getProeven();
+    public void vulTabelBp() {
+        ArrayList<Bachelorproef> alles = modelBp.getProeven();
         ObservableList<BP> bps = FXCollections.observableArrayList();
         for(Bachelorproef bp : alles) {
             bps.add(new BP(bp.getTitel(), bp.getBeschrijving()));
@@ -112,6 +163,45 @@ public class FXMLDocumentController {
         beschrijvingKolom.setCellValueFactory(rij -> rij.getValue().beschrijvingProperty());
         
         bpTabel.setItems(bps);
+    }
+    
+        public void vulTabelKeuzeOpNaam() {
+        ArrayList<Keuze> alles = modelKeuze.getProevenOpNaam();
+        ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
+        for(Keuze keuze : alles) {
+            keuzes.add(new KeuzeProp(keuze.getNaam(), keuze.getProef(), keuze.getPunten()));
+        }
+        kolomKeuzeNaam.setCellValueFactory((rij -> rij.getValue().naamProperty()));
+        kolomKeuzeProef.setCellValueFactory(rij -> rij.getValue().proefProperty());
+        kolomKeuzePunten.setCellValueFactory(rij -> rij.getValue().puntenProperty());
+        
+        tabelKeuze.setItems(keuzes);
+    }
+        
+    public void vulTabelKeuzeOpProef() {
+        ArrayList<Keuze> alles = modelKeuze.getProevenOpProef();
+        ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
+        for(Keuze keuze : alles) {
+            keuzes.add(new KeuzeProp(keuze.getNaam(), keuze.getProef(), keuze.getPunten()));
+        }
+        kolomKeuzeNaam.setCellValueFactory((rij -> rij.getValue().naamProperty()));
+        kolomKeuzeProef.setCellValueFactory(rij -> rij.getValue().proefProperty());
+        kolomKeuzePunten.setCellValueFactory(rij -> rij.getValue().puntenProperty());
+        
+        tabelKeuze.setItems(keuzes);
+    }
+    
+    public void vulTabelKeuzeOpPunten() {
+        ArrayList<Keuze> alles = modelKeuze.getProevenOpPunten();
+        ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
+        for(Keuze keuze : alles) {
+            keuzes.add(new KeuzeProp(keuze.getNaam(), keuze.getProef(), keuze.getPunten()));
+        }
+        kolomKeuzeNaam.setCellValueFactory((rij -> rij.getValue().naamProperty()));
+        kolomKeuzeProef.setCellValueFactory(rij -> rij.getValue().proefProperty());
+        kolomKeuzePunten.setCellValueFactory(rij -> rij.getValue().puntenProperty());
+        
+        tabelKeuze.setItems(keuzes);
     }
 }
 
