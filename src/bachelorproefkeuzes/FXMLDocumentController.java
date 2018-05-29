@@ -37,15 +37,27 @@ public class FXMLDocumentController {
 
     @FXML
     private Button knopNaarBpToevoegen;
-    
+
     @FXML
     private Button knopNaarLijstKeuzes;
-    
+
     @FXML
     private Button knopNaarKeuzeToevoegen;
-    
+
     @FXML
     private Button knopNaarStudentToevoegen;
+
+    @FXML
+    private Label labelVoorStudenten;
+
+    @FXML
+    private Label labelVoorDocenten;
+
+    @FXML
+    private Button knopNaarKeuzeToewijzen;
+
+    @FXML
+    private Button knopNaarPuntenToewijzen;
     
     @FXML
     private AnchorPane lijstBp;
