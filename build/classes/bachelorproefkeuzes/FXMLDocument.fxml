@@ -14,15 +14,16 @@
     <children>
       <AnchorPane fx:id="hoofdmenu" prefHeight="692.0" prefWidth="653.0" visible="false">
          <children>
-            <Button fx:id="knopNaarLijstBp" layoutX="251.0" layoutY="515.0" mnemonicParsing="false" text="Lijst van bachelorproeven" />
+            <Button fx:id="knopNaarLijstBp" layoutX="250.0" layoutY="346.0" mnemonicParsing="false" text="Lijst van bachelorproeven" />
             <Label fx:id="labelHoofdmenu" layoutX="196.0" layoutY="42.0" text="Keuzes voor bachelorproeven">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="knopNaarBpToevoegen" layoutX="251.0" layoutY="445.0" mnemonicParsing="false" text="Bachelorproef toevoegen" />
+            <Button fx:id="knopNaarBpToevoegen" layoutX="108.0" layoutY="578.0" mnemonicParsing="false" text="Bachelorproef toevoegen" />
             <Button fx:id="knopNaarLijstKeuzes" layoutX="107.0" layoutY="231.0" mnemonicParsing="false" text="Lijst keuzes" />
             <Button fx:id="knopNaarKeuzeToevoegen" layoutX="401.0" layoutY="231.0" mnemonicParsing="false" text="Keuze Indienen" />
+            <Button fx:id="knopNaarStudentToevoegen" layoutX="391.0" layoutY="578.0" mnemonicParsing="false" text="Student toevoegen" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="lijstBp" layoutX="-2.0" layoutY="-2.0" prefHeight="692.0" prefWidth="653.0" visible="false">
@@ -41,7 +42,7 @@
             <Button fx:id="terugknopLijst" layoutX="564.0" layoutY="605.0" mnemonicParsing="false" text="Terug" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="bpToevoegen" prefHeight="692.0" prefWidth="654.0" visible="false">
+      <AnchorPane fx:id="bpToevoegen" prefHeight="692.0" prefWidth="654.0">
          <children>
             <TextField fx:id="titel" layoutX="209.0" layoutY="103.0" prefHeight="26.0" prefWidth="384.0" text="bachelorproef" />
             <Button fx:id="voegBPtoe" layoutX="303.0" layoutY="486.0" mnemonicParsing="false" text="sla op" />
@@ -52,6 +53,11 @@
             <Label fx:id="labelTitelBpToevoegen" layoutX="209.0" layoutY="33.0" prefHeight="30.0" prefWidth="236.0" text="Toevoegen bachelorproef">
                <font>
                   <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelOpgeslagen" layoutX="261.0" layoutY="540.0" text="De proef is opgeslagen" visible="false">
+               <font>
+                  <Font size="13.0" />
                </font>
             </Label>
          </children>
@@ -76,7 +82,7 @@
             <Button fx:id="sorteerknopPunten" layoutX="475.0" layoutY="503.0" mnemonicParsing="false" text="Sorteer op punten" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="keuzeToevoegen" prefHeight="692.0" prefWidth="654.0">
+      <AnchorPane fx:id="keuzeToevoegen" prefHeight="692.0" prefWidth="654.0" visible="false">
          <children>
             <Label fx:id="labelTitelKeuzeToevoegen" layoutX="171.0" layoutY="49.0" text="Keuze maken van de bachelorproef">
                <font>
@@ -96,6 +102,26 @@
             <ComboBox fx:id="comboboxKeuze2KeuzeT" layoutX="252.0" layoutY="334.0" prefWidth="150.0" />
             <ComboBox fx:id="comboboxKeuze3KeuzeT" layoutX="252.0" layoutY="411.0" prefWidth="150.0" />
             <Label fx:id="labelFoutKeuzeT" layoutX="171.0" layoutY="196.0" prefHeight="26.0" prefWidth="311.0" text="Wachtwoord is fout of keuzes hetzelfde ingevuld" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="inloggenDocent" layoutX="114.0" layoutY="190.0" prefHeight="311.0" prefWidth="426.0" visible="false">
+         <children>
+            <Label fx:id="labelTitelInloggenDocent" layoutX="139.0" layoutY="24.0" text="Inloggen Docent">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelNaamInlD" layoutX="60.0" layoutY="88.0" text="Naam: " />
+            <Label fx:id="labelPaswoordInlD" layoutX="60.0" layoutY="147.0" text="Paswoord:" />
+            <TextField fx:id="textfieldNaamInlD" layoutX="139.0" layoutY="84.0" />
+            <TextField fx:id="textfieldPaswoordInlD" layoutX="139.0" layoutY="143.0" />
+            <Button fx:id="knopInloggenD" layoutX="181.0" layoutY="231.0" mnemonicParsing="false" text="Inloggen" />
+            <Button fx:id="knopHoofdmenuInlD" layoutX="314.0" layoutY="263.0" mnemonicParsing="false" text="Hoofdmenu" />
+            <Label fx:id="labelFoutDocent" layoutX="86.0" layoutY="196.0" text="Verkeerde naam of verkeerd wachtwoord" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

@@ -53,7 +53,7 @@ public class KeuzeDB {
         ArrayList<Student> lijst = getStudenten();
         for (int i=0; i<lijst.size();i++) {
             String naam = lijst.get(i).getNaam();
-            if(naam==naamChecken) {
+            if(naam.equals(naamChecken)) {
                 if(lijst.get(i).getPaswoord()==paswoordIn) {
                     return true;
                 }

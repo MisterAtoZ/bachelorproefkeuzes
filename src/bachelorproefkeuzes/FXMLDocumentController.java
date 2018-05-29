@@ -45,6 +45,9 @@ public class FXMLDocumentController {
     private Button knopNaarKeuzeToevoegen;
     
     @FXML
+    private Button knopNaarStudentToevoegen;
+    
+    @FXML
     private AnchorPane lijstBp;
 
     @FXML
@@ -85,6 +88,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelTitelBpToevoegen;
+    
+    @FXML
+    private Label labelOpgeslagen;
     
     @FXML
     private AnchorPane lijstKeuze;
@@ -161,21 +167,55 @@ public class FXMLDocumentController {
     @FXML
     private Label labelFoutKeuzeT;
     
+    @FXML
+    private AnchorPane inloggenDocent;
+
+    @FXML
+    private Label labelTitelInloggenDocent;
+
+    @FXML
+    private Label labelNaamInlD;
+
+    @FXML
+    private Label labelPaswoordInlD;
+
+    @FXML
+    private TextField textfieldNaamInlD;
+
+    @FXML
+    private TextField textfieldPaswoordInlD;
+
+    @FXML
+    private Button knopInloggenD;
+
+    @FXML
+    private Button knopHoofdmenuInlD;
+    
+    @FXML
+    private Label labelFoutDocent;
+    
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
     private StudentDB modelStudent;
+    private DocentDB modelDocent;
 
     @FXML
     void initialize() {
         modelBp = new BachelorproevenDB();
         modelKeuze = new KeuzeDB();
         modelStudent = new StudentDB();
+        modelDocent = new DocentDB();
+        
         hoofdmenu.setVisible(true);
         lijstBp.setVisible(false);
         bpToevoegen.setVisible(false);
         lijstKeuze.setVisible(false);
         keuzeToevoegen.setVisible(false);
+        inloggenDocent.setVisible(false);
+        
         labelFoutKeuzeT.setVisible(false);
+        labelFoutDocent.setVisible(false);
+        labelOpgeslagen.setVisible(false);
         //vulTabel();
         refresh();
     }
@@ -183,22 +223,43 @@ public class FXMLDocumentController {
     public void refresh() {
         //knoppen hoofdmenu
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
-        knopNaarBpToevoegen.setOnAction(ecent ->{hoofdmenu.setVisible(false);lijstBp.setVisible(false);bpToevoegen.setVisible(true);});
+        knopNaarBpToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);inloggenDocent.setVisible(true);});//gaat naar inlogscherm docent
         knopNaarLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(false);lijstKeuze.setVisible(true);vulTabelKeuzeOpNaam();});
         knopNaarKeuzeToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});
+        //knopNaarStudentToevoegen nog maken!
         //knoppen lijstBp
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
         //knoppen BPtoevoegen
         voegBPtoe.setOnAction(event -> voegBPToe());
-        terugknopBpToevoegen.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
+        terugknopBpToevoegen.setOnAction(event->{hoofdmenu.setVisible(true); bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false);});
         //Knoppen lijstKeuzes
         sorteerknopNaam.setOnAction(event -> vulTabelKeuzeOpNaam());
         sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
         sorteerknopPunten.setOnAction(event -> vulTabelKeuzeOpPunten());
         terugknopLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(true);lijstKeuze.setVisible(false);});
         //knoppen keuzeToevoegen
-        knopBevestigenKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
+        knopBevestigenKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);voegKeuzeToe();});
         terugKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
+        //knoppen inloggenDocent
+        knopInloggenD.setOnAction(event ->{controlerenDocent();});
+        knopHoofdmenuInlD.setOnAction(event ->{hoofdmenu.setVisible(true);inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false);});
+    }
+    
+    public void controlerenDocent() {
+        String naam = textfieldNaamInlD.getText();
+        String paswoord = textfieldPaswoordInlD.getText();
+
+        ObservableList<Docent> docenten = FXCollections.observableArrayList(modelDocent.getDocenten());
+        for (int i=0; i<docenten.size();i++) {
+            if(docenten.get(i).getNaam().equals(naam) && docenten.get(i).getPaswoord().equals(paswoord)) {
+                inloggenDocent.setVisible(false);
+                labelFoutDocent.setVisible(false);
+                bpToevoegen.setVisible(true);
+            }
+            else {
+                labelFoutDocent.setVisible(true);
+            }
+        } 
     }
     
     public void keuzeToevoegen() {
@@ -211,8 +272,6 @@ public class FXMLDocumentController {
         comboboxKeuze1KeuzeT.setItems(bps);
         comboboxKeuze2KeuzeT.setItems(bps);
         comboboxKeuze3KeuzeT.setItems(bps);
-        
-        knopBevestigenKeuzeT.setOnAction(event ->{voegKeuzeToe();});
     }
        
     public void voegKeuzeToe() {
@@ -243,15 +302,8 @@ public class FXMLDocumentController {
                                                 beschrijvingen.getText());
         modelBp.voegToe(nieuw);
         ArrayList<Bachelorproef> alles = modelBp.getProeven();
-        voegBPtoe.setText(alles.size() + " proeven");
+        labelOpgeslagen.setVisible(true);
         vulTabelBp();
-    }
-    
-    public void voegBpToe() {
-        //checken wat er in de naamcombobox staan 
-        //het paswoord van deze naam vergelijken met het ingegeven ww
-        //controleren of er niet meerdere keren dezelfde proef is ingegeven
-        //als alles okee is, de drie verschillende keuzes doorgeven
     }
     
     public void vulTabelBp() {
