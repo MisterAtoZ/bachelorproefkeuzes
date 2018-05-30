@@ -48,7 +48,7 @@ public class KeuzeDB {
             Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
         }     
     }
-    
+    /* WAARSCH NIET MEER NODIG
     public boolean isHetWWJuist(String naamChecken, String paswoordIn) {
         ArrayList<Student> lijst = getStudenten();
         for (int i=0; i<lijst.size();i++) {
@@ -83,7 +83,7 @@ public class KeuzeDB {
             return null;
         }  
     }
-    
+    */
     public ArrayList<Keuze> getProevenOpNaam(){ 
         try {
             String sql = "select * from keuze ORDER by student";

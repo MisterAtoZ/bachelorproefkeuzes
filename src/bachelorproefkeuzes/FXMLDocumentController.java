@@ -39,7 +39,7 @@ public class FXMLDocumentController {
     private Button knopNaarBpToevoegen;
 
     @FXML
-    private Button knopNaarLijstKeuzes;
+    private Button knopNaarLijstKeuzesSt;
 
     @FXML
     private Button knopNaarKeuzeToevoegen;
@@ -206,10 +206,47 @@ public class FXMLDocumentController {
     @FXML
     private Label labelFoutDocent;
     
+    @FXML
+    private AnchorPane LijstKeuzeSt;
+
+    @FXML
+    private TableView<KeuzeStudentProp> tabelKeuzeSt;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStStudent;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze1;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze2;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
+
+    @FXML
+    private Label labelTitelKeuzeSt;
+
+    @FXML
+    private Button knopKeuzeStSortStu;
+
+    @FXML
+    private Button knopkeuzeStSortKeuze1;
+
+    @FXML
+    private Button knopkeuzeStSortKeuze2;
+
+    @FXML
+    private Button knopkeuzeStSortKeuze3;
+
+    @FXML
+    private Button knopHoofdmenuKeuzeSt;
+    
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
     private StudentDB modelStudent;
     private DocentDB modelDocent;
+    private KeuzeStudentDB modelKeuzeSt;
 
     @FXML
     void initialize() {
@@ -217,6 +254,7 @@ public class FXMLDocumentController {
         modelKeuze = new KeuzeDB();
         modelStudent = new StudentDB();
         modelDocent = new DocentDB();
+        modelKeuzeSt = new KeuzeStudentDB();
         
         hoofdmenu.setVisible(true);
         lijstBp.setVisible(false);
@@ -224,6 +262,7 @@ public class FXMLDocumentController {
         lijstKeuze.setVisible(false);
         keuzeToevoegen.setVisible(false);
         inloggenDocent.setVisible(false);
+        LijstKeuzeSt.setVisible(false);
         
         labelFoutKeuzeT.setVisible(false);
         labelFoutDocent.setVisible(false);
@@ -236,7 +275,7 @@ public class FXMLDocumentController {
         //knoppen hoofdmenu
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
         knopNaarBpToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);inloggenDocent.setVisible(true);});//gaat naar inlogscherm docent
-        knopNaarLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(false);lijstKeuze.setVisible(true);vulTabelKeuzeOpNaam();});
+        knopNaarLijstKeuzesSt.setOnAction(event ->{hoofdmenu.setVisible(false);LijstKeuzeSt.setVisible(true);vulTabelKeuzeStOpStudent();});
         knopNaarKeuzeToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});
         //knopNaarStudentToevoegen nog maken!
         //knoppen lijstBp
@@ -250,13 +289,75 @@ public class FXMLDocumentController {
         sorteerknopPunten.setOnAction(event -> vulTabelKeuzeOpPunten());
         terugknopLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(true);lijstKeuze.setVisible(false);});
         //knoppen keuzeToevoegen
-        knopBevestigenKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);voegKeuzeToe();});
+        knopBevestigenKeuzeT.setOnAction(event ->{voegKeuzeToe();});
         terugKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
         //knoppen inloggenDocent
         knopInloggenD.setOnAction(event ->{controlerenDocent();});
         knopHoofdmenuInlD.setOnAction(event ->{hoofdmenu.setVisible(true);inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false);});
+        //knoppen naar lijstKeuzeSt
+        knopKeuzeStSortStu.setOnAction(event ->{vulTabelKeuzeStOpStudent();});
+        knopkeuzeStSortKeuze1.setOnAction(event ->{vulTabelKeuzeStOpKeuze1();});
+        knopkeuzeStSortKeuze2.setOnAction(event -> {vulTabelKeuzeStOpKeuze2();});
+        knopkeuzeStSortKeuze3.setOnAction(event ->{vulTabelKeuzeStOpKeuze3();});
+        knopHoofdmenuKeuzeSt.setOnAction(event ->{hoofdmenu.setVisible(true); LijstKeuzeSt.setVisible(false);});
     }
     
+    public void vulTabelKeuzeStOpStudent() {
+        ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpStudent();
+        ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
+        for(KeuzeStudent keuze : alles) {
+            keuzes.add(new KeuzeStudentProp(keuze.getStudent(), keuze.getKeuze1(), keuze.getKeuze2(), keuze.getKeuze3()));
+        }
+        kolomKeuzeStStudent.setCellValueFactory((rij -> rij.getValue().studentProperty()));
+        kolomKeuzeStKeuze1.setCellValueFactory(rij -> rij.getValue().keuze1Property());
+        kolomKeuzeStKeuze2.setCellValueFactory(rij -> rij.getValue().keuze2Property());
+        kolomKeuzeStKeuze3.setCellValueFactory(rij -> rij.getValue().keuze3Property());
+        
+        tabelKeuzeSt.setItems(keuzes);
+    }
+    
+    public void vulTabelKeuzeStOpKeuze1() {
+        ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze1();
+        ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
+        for(KeuzeStudent keuze : alles) {
+            keuzes.add(new KeuzeStudentProp(keuze.getStudent(), keuze.getKeuze1(), keuze.getKeuze2(), keuze.getKeuze3()));
+        }
+        kolomKeuzeStStudent.setCellValueFactory((rij -> rij.getValue().studentProperty()));
+        kolomKeuzeStKeuze1.setCellValueFactory(rij -> rij.getValue().keuze1Property());
+        kolomKeuzeStKeuze2.setCellValueFactory(rij -> rij.getValue().keuze2Property());
+        kolomKeuzeStKeuze3.setCellValueFactory(rij -> rij.getValue().keuze3Property());
+        
+        tabelKeuzeSt.setItems(keuzes);
+    }
+    
+    public void vulTabelKeuzeStOpKeuze2() {
+        ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze2();
+        ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
+        for(KeuzeStudent keuze : alles) {
+            keuzes.add(new KeuzeStudentProp(keuze.getStudent(), keuze.getKeuze1(), keuze.getKeuze2(), keuze.getKeuze3()));
+        }
+        kolomKeuzeStStudent.setCellValueFactory((rij -> rij.getValue().studentProperty()));
+        kolomKeuzeStKeuze1.setCellValueFactory(rij -> rij.getValue().keuze1Property());
+        kolomKeuzeStKeuze2.setCellValueFactory(rij -> rij.getValue().keuze2Property());
+        kolomKeuzeStKeuze3.setCellValueFactory(rij -> rij.getValue().keuze3Property());
+        
+        tabelKeuzeSt.setItems(keuzes);
+    }
+    
+    public void vulTabelKeuzeStOpKeuze3() {
+        ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze3();
+        ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
+        for(KeuzeStudent keuze : alles) {
+            keuzes.add(new KeuzeStudentProp(keuze.getStudent(), keuze.getKeuze1(), keuze.getKeuze2(), keuze.getKeuze3()));
+        }
+        kolomKeuzeStStudent.setCellValueFactory((rij -> rij.getValue().studentProperty()));
+        kolomKeuzeStKeuze1.setCellValueFactory(rij -> rij.getValue().keuze1Property());
+        kolomKeuzeStKeuze2.setCellValueFactory(rij -> rij.getValue().keuze2Property());
+        kolomKeuzeStKeuze3.setCellValueFactory(rij -> rij.getValue().keuze3Property());
+        
+        tabelKeuzeSt.setItems(keuzes);
+    }
+       
     public void controlerenDocent() {
         String naam = textfieldNaamInlD.getText();
         String paswoord = textfieldPaswoordInlD.getText();
@@ -275,8 +376,7 @@ public class FXMLDocumentController {
     }
     
     public void keuzeToevoegen() {
-        //naam invullen in combobox+alle keuzes
-        //paswoord gedaan krijgen
+        //aanpassen naar keuzestudentDB
         ObservableList<String> namen = FXCollections.observableArrayList(modelStudent.fillCombo());
         comboboxNaamKeuzeT.setItems(namen);
         
@@ -288,23 +388,18 @@ public class FXMLDocumentController {
        
     public void voegKeuzeToe() {
         String naam = comboboxNaamKeuzeT.getValue();
-        System.out.println("de naam is: "+naam);
         String keuze1 = comboboxKeuze1KeuzeT.getValue();
         String keuze2 = comboboxKeuze2KeuzeT.getValue();
         String keuze3 = comboboxKeuze3KeuzeT.getValue();
         String paswoord = textfieldPaswoordKeuzeT.getText();
  
-        if(modelKeuze.isHetWWJuist(naam, paswoord)==true) {
-            //het wachtwoord is correct
+        if(modelKeuzeSt.isHetWWJuist(naam, paswoord)==true) {
             if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
-                //keuzes zijn allemaal verschillend
                 int punten = 0;
-                modelKeuze.voegKeuzesToe(naam, keuze1, punten);
-                modelKeuze.voegKeuzesToe(naam, keuze2, punten);
-                modelKeuze.voegKeuzesToe(naam, keuze3, punten);
+                modelKeuzeSt.voegKeuzesStToe(naam, keuze1, keuze2, keuze3);
                 initialize();
             }
-            else {labelFoutKeuzeT.setVisible(true);}//verkeerde keuze}}
+            else {labelFoutKeuzeT.setVisible(true);}
         }
         else{labelFoutKeuzeT.setVisible(true);}//verkeerde ww}}       
     }
@@ -330,7 +425,7 @@ public class FXMLDocumentController {
         bpTabel.setItems(bps);
     }
     
-        public void vulTabelKeuzeOpNaam() {
+    public void vulTabelKeuzeOpNaam() {
         ArrayList<Keuze> alles = modelKeuze.getProevenOpNaam();
         ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
         for(Keuze keuze : alles) {
