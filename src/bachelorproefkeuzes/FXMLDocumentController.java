@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class FXMLDocumentController {
-   
+    
     @FXML
     private AnchorPane hoofdmenu;
 
@@ -42,7 +42,7 @@ public class FXMLDocumentController {
     private Button knopNaarLijstKeuzesSt;
 
     @FXML
-    private Button knopNaarKeuzeToevoegen;
+    private Button knopNaarKeuzeIndienen;
 
     @FXML
     private Button knopNaarStudentToevoegen;
@@ -58,19 +58,13 @@ public class FXMLDocumentController {
 
     @FXML
     private Button knopNaarPuntenToewijzen;
-    
+
+    @FXML
+    private Button knopNaarLijstToewijzigingenkeuzes;
+
     @FXML
     private AnchorPane lijstBp;
 
-    @FXML
-    private TableView<BP> bpTabel;
-
-    @FXML
-    private TableColumn<BP, String> titelKolom;
-
-    @FXML
-    private TableColumn<BP, String> beschrijvingKolom;
-    
     @FXML
     private Label labelTitelLijst;
 
@@ -100,10 +94,10 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelTitelBpToevoegen;
-    
+
     @FXML
     private Label labelOpgeslagen;
-    
+
     @FXML
     private AnchorPane lijstKeuze;
 
@@ -120,34 +114,10 @@ public class FXMLDocumentController {
     private Label titelLijstKeuze;
 
     @FXML
-    private TableView<KeuzeProp> tabelKeuze;
-
-    @FXML
-    private TableColumn<KeuzeProp, String> kolomKeuzeNaam;
-
-    @FXML
-    private TableColumn<KeuzeProp, String> kolomKeuzeProef;
-
-    @FXML
-    private TableColumn<KeuzeProp, Number> kolomKeuzePunten;
-
-    @FXML
     private Button sorteerknopPunten;
-    
+
     @FXML
     private AnchorPane keuzeToevoegen;
-
-    @FXML
-    private ComboBox<String> comboboxNaamKeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze1KeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze2KeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze3KeuzeT;
 
     @FXML
     private Label labelTitelKeuzeToevoegen;
@@ -175,10 +145,10 @@ public class FXMLDocumentController {
 
     @FXML
     private Button terugKeuzeT;
-    
+
     @FXML
     private Label labelFoutKeuzeT;
-    
+
     @FXML
     private AnchorPane inloggenDocent;
 
@@ -202,27 +172,12 @@ public class FXMLDocumentController {
 
     @FXML
     private Button knopHoofdmenuInlD;
-    
+
     @FXML
     private Label labelFoutDocent;
-    
+
     @FXML
     private AnchorPane LijstKeuzeSt;
-
-    @FXML
-    private TableView<KeuzeStudentProp> tabelKeuzeSt;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStStudent;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze1;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze2;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
 
     @FXML
     private Label labelTitelKeuzeSt;
@@ -241,6 +196,54 @@ public class FXMLDocumentController {
 
     @FXML
     private Button knopHoofdmenuKeuzeSt;
+
+    @FXML
+    private TableView<BP> bpTabel;
+
+    @FXML
+    private TableColumn<BP, String> titelKolom;
+
+    @FXML
+    private TableColumn<BP, String> beschrijvingKolom;
+
+    @FXML
+    private TableView<KeuzeProp> tabelKeuze;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeNaam;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeProef;
+
+    @FXML
+    private TableColumn<KeuzeProp, Number> kolomKeuzePunten;
+
+    @FXML
+    private ComboBox<String> comboboxNaamKeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze1KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze2KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze3KeuzeT;
+
+    @FXML
+    private TableView<KeuzeStudentProp> tabelKeuzeSt;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStStudent;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze1;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze2;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
     
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
@@ -276,7 +279,8 @@ public class FXMLDocumentController {
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
         knopNaarBpToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);inloggenDocent.setVisible(true);});//gaat naar inlogscherm docent
         knopNaarLijstKeuzesSt.setOnAction(event ->{hoofdmenu.setVisible(false);LijstKeuzeSt.setVisible(true);vulTabelKeuzeStOpStudent();});
-        knopNaarKeuzeToevoegen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});
+        knopNaarKeuzeIndienen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});//keuze aanpassen, dat iedere student maar 1 keer kan toevoegen
+        knopNaarLijstToewijzigingenkeuzes.setOnAction(event ->{hoofdmenu.setVisible(false); lijstKeuze.setVisible(true);});
         //knopNaarStudentToevoegen nog maken!
         //knoppen lijstBp
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
