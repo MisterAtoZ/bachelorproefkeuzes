@@ -148,6 +148,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelFoutKeuzeT;
+    
+    @FXML
+    private Label labelNaamAlIngediend;
 
     @FXML
     private AnchorPane inloggenDocent;
@@ -245,6 +248,36 @@ public class FXMLDocumentController {
     @FXML
     private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
     
+    @FXML
+    private AnchorPane keuzeToewijzen;
+
+    @FXML
+    private Label labelTitelKeuzeToewijzen;
+
+    @FXML
+    private ComboBox<String> comboboxStudentKeuzeToew;
+
+    @FXML
+    private ComboBox<String> comboboxKeuzeKeuzeToew;
+
+    @FXML
+    private Label labelStudentKeuzeToew;
+
+    @FXML
+    private Label labelKeuzeKeuzeToew;
+
+    @FXML
+    private Label labelFoutKeuzeToew;
+    
+    @FXML
+    private Label labelFoutKeuzeToew1;
+
+    @FXML
+    private Button knopBevestigenKeuzeToew;
+
+    @FXML
+    private Button knopHoofdmenuKeuzeToev;
+    
     private BachelorproevenDB modelBp;
     private KeuzeDB modelKeuze;
     private StudentDB modelStudent;
@@ -266,11 +299,14 @@ public class FXMLDocumentController {
         keuzeToevoegen.setVisible(false);
         inloggenDocent.setVisible(false);
         LijstKeuzeSt.setVisible(false);
+        keuzeToewijzen.setVisible(false);
         
         labelFoutKeuzeT.setVisible(false);
         labelFoutDocent.setVisible(false);
         labelOpgeslagen.setVisible(false);
-        //vulTabel();
+        labelNaamAlIngediend.setVisible(false);
+        labelFoutKeuzeToew.setVisible(false);
+        labelFoutKeuzeToew1.setVisible(false);
         refresh();
     }
     
@@ -281,6 +317,7 @@ public class FXMLDocumentController {
         knopNaarLijstKeuzesSt.setOnAction(event ->{hoofdmenu.setVisible(false);LijstKeuzeSt.setVisible(true);vulTabelKeuzeStOpStudent();});
         knopNaarKeuzeIndienen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});//keuze aanpassen, dat iedere student maar 1 keer kan toevoegen
         knopNaarLijstToewijzigingenkeuzes.setOnAction(event ->{hoofdmenu.setVisible(false); lijstKeuze.setVisible(true);});
+        knopNaarKeuzeToewijzen.setOnAction(event -> {hoofdmenu.setVisible(false); keuzeToewijzen.setVisible(true); keuzeToewijzen();});
         //knopNaarStudentToevoegen nog maken!
         //knoppen lijstBp
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
@@ -305,6 +342,44 @@ public class FXMLDocumentController {
         knopkeuzeStSortKeuze3.setOnAction(event ->{vulTabelKeuzeStOpKeuze3();});
         knopHoofdmenuKeuzeSt.setOnAction(event ->{hoofdmenu.setVisible(true); LijstKeuzeSt.setVisible(false);});
     }
+    
+    public void keuzeToewijzen() {
+        ObservableList<String> namenKeuzeLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
+        ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuze.getStudenten());
+        
+        comboboxStudentKeuzeToew.setItems(namenKeuzeLijst);
+        //comboboxKeuzeKeuzeToew.setItems();//query nog voor schrijven!
+        knopBevestigenKeuzeToew.setOnAction(event->voegDefKeuzeToe());
+        knopHoofdmenuKeuzeToev.setOnAction(event -> initialize());
+    }
+    
+    public void voegDefKeuzeToe() {
+        //keuze toevoegen aan de lijst
+        String student = comboboxNaamKeuzeT.getValue();
+        String keuze = comboboxKeuzeKeuzeToew.getValue();
+        
+        if(student.isEmpty()||keuze.isEmpty()) {labelFoutKeuzeToew.setVisible(true);labelFoutKeuzeToew1.setVisible(false);}
+        else {
+            //controleren of de student al in de lijst zit
+            //keuze toevoegen
+            ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuze.getStudenten());
+        
+            if(namenInLijst.contains(student)){
+                //de naam zit al in de lijst en kan niet nog eens worden toegevoegd
+                labelFoutKeuzeToew1.setVisible(true);
+                labelFoutKeuzeT.setVisible(false);
+            }
+            else {
+                labelFoutKeuzeToew.setVisible(false);
+                labelFoutKeuzeToew1.setVisible(false);
+    
+                int punten = 0;
+                modelKeuze.voegKeuzesToe(student, keuze, punten);
+                initialize();
+            }
+        }
+    }
+        
     
     public void vulTabelKeuzeStOpStudent() {
         ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpStudent();
@@ -380,7 +455,6 @@ public class FXMLDocumentController {
     }
     
     public void keuzeToevoegen() {
-        //aanpassen naar keuzestudentDB
         ObservableList<String> namen = FXCollections.observableArrayList(modelStudent.fillCombo());
         comboboxNaamKeuzeT.setItems(namen);
         
@@ -397,15 +471,24 @@ public class FXMLDocumentController {
         String keuze3 = comboboxKeuze3KeuzeT.getValue();
         String paswoord = textfieldPaswoordKeuzeT.getText();
  
-        if(modelKeuzeSt.isHetWWJuist(naam, paswoord)==true) {
-            if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
-                int punten = 0;
-                modelKeuzeSt.voegKeuzesStToe(naam, keuze1, keuze2, keuze3);
-                initialize();
+        ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
+        
+       if(namenInLijst.contains(naam)){
+                //de naam zit al in de lijst en kan niet nog eens worden toegevoegd
+                labelNaamAlIngediend.setVisible(true);
+                labelFoutKeuzeT.setVisible(false);
             }
-            else {labelFoutKeuzeT.setVisible(true);}
-        }
-        else{labelFoutKeuzeT.setVisible(true);}//verkeerde ww}}       
+            else {
+                labelNaamAlIngediend.setVisible(false);
+                if(modelKeuzeSt.isHetWWJuist(naam, paswoord)==true) {
+                    if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
+                        modelKeuzeSt.voegKeuzesStToe(naam, keuze1, keuze2, keuze3);
+                        initialize();
+                    }
+                    else {labelFoutKeuzeT.setVisible(true);}
+                }
+                else{labelFoutKeuzeT.setVisible(true);}//verkeerde ww}}
+            }
     }
     
     public void voegBPToe(){

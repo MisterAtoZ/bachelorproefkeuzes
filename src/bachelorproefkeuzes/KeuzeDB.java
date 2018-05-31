@@ -48,32 +48,16 @@ public class KeuzeDB {
             Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
         }     
     }
-    /* WAARSCH NIET MEER NODIG
-    public boolean isHetWWJuist(String naamChecken, String paswoordIn) {
-        ArrayList<Student> lijst = getStudenten();
-        for (int i=0; i<lijst.size();i++) {
-            String naam = lijst.get(i).getNaam();
-            if(naam.equals(naamChecken)) {
-                if(lijst.get(i).getPaswoord()==paswoordIn) {
-                    return true;
-                }
-                else {return false;}
-            }
-        }
-        return true;
-    }
-    
-    public ArrayList<Student> getStudenten() {
+        
+    public ArrayList<String> getStudenten() {
         try {
-            String sql = "select * from student";
+            String sql = "select student from keuze";
             PreparedStatement stmt =
                     connectie.prepareStatement(sql);
             ResultSet results = stmt.executeQuery();
-            ArrayList<Student> lijst = new ArrayList<>();
+            ArrayList<String> lijst = new ArrayList<>();
             while(results.next()){
-                String naam = results.getString("naam");
-                String paswoord = results.getString("paswoord");
-                Student student = new Student(naam, paswoord);
+                String student = results.getString("student");
                 lijst.add(student);
             }
             stmt.close();
@@ -83,7 +67,7 @@ public class KeuzeDB {
             return null;
         }  
     }
-    */
+    
     public ArrayList<Keuze> getProevenOpNaam(){ 
         try {
             String sql = "select * from keuze ORDER by student";

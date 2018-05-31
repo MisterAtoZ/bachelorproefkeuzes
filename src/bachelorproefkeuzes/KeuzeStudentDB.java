@@ -31,6 +31,25 @@ public class KeuzeStudentDB {
         }
     }
     
+    public ArrayList<String> getNamenStudenten() {
+        try {
+            String sql = "select student from keuzestudent";
+            PreparedStatement stmt =
+                    connectie.prepareStatement(sql);
+            ResultSet results = stmt.executeQuery();
+            ArrayList<String> lijst = new ArrayList<>();
+            while(results.next()){
+                String naam = results.getString("student");
+                lijst.add(naam);
+            }
+            stmt.close();
+            return lijst;
+        } catch (SQLException ex) {
+            Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+    }
+    
     public void voegKeuzesStToe(String naam, String keuze1, String keuze2, String keuze3) {
         String sql = "insert into keuzestudent (student,keuze1,keuze2,keuze3)" + "values (?,?,?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
         // en om te vermijden da een tabel wordt verwijderd door iemand
