@@ -31,6 +31,25 @@ public class StudentDB {
         }
     }
     
+    public ArrayList<String> getNamenStudenten() {
+        try {
+            String sql = "select naam from student";
+            PreparedStatement stmt =
+                    connectie.prepareStatement(sql);
+            ResultSet results = stmt.executeQuery();
+            ArrayList<String> lijst = new ArrayList<>();
+            while(results.next()){
+                String naam = results.getString("naam");
+                lijst.add(naam);
+            }
+            stmt.close();
+            return lijst;
+        } catch (SQLException ex) {
+            Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+    }
+    
     public ArrayList<Student> getStudenten(){ 
         try {
             String sql = "select * from student ORDER by naam";

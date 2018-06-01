@@ -31,6 +31,29 @@ public class KeuzeStudentDB {
         }
     }
     
+    public ArrayList<String> getKeuzesVanStudent(String naam) {
+        try {
+            String sql = "select * FROM keuzestudent WHERE student = \""+naam+"\""; //"\"" + theFirst + "\""
+            PreparedStatement stmt =
+                    connectie.prepareStatement(sql);
+            ResultSet results = stmt.executeQuery();
+            ArrayList<String> lijst = new ArrayList<>();
+            while(results.next()){
+                String keuze1 = results.getString("keuze1");
+                String keuze2 = results.getString("keuze2");
+                String keuze3= results.getString("keuze3");
+                lijst.add(keuze1);
+                lijst.add(keuze2);
+                lijst.add(keuze3);
+            }
+            stmt.close();
+            return lijst;
+        } catch (SQLException ex) {
+            Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+    }
+    
     public ArrayList<String> getNamenStudenten() {
         try {
             String sql = "select student from keuzestudent";
