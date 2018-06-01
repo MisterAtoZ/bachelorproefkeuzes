@@ -61,6 +61,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Button terugknopLijst;
+    
+    @FXML
+    private Button knopTerugLijstBp;
 
     @FXML
     private AnchorPane bpToevoegen;
@@ -187,6 +190,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelTitelActiesDocent;
+    
+    @FXML
+    private Button knopHoofdmenuActiesDocenten;
 
     @FXML
     private AnchorPane LijstKeuzeSt;
@@ -343,7 +349,8 @@ public class FXMLDocumentController {
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
         //knoppen BPtoevoegen
         voegBPtoe.setOnAction(event -> voegBPToe());
-        terugknopBpToevoegen.setOnAction(event->{hoofdmenu.setVisible(true); bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false);});
+        terugknopBpToevoegen.setOnAction(event-> initialize());
+        knopTerugLijstBp.setOnAction(event->{bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false); actiesDocent.setVisible(true);});
         //Knoppen lijstKeuzes
         sorteerknopNaam.setOnAction(event -> vulTabelKeuzeOpNaam());
         sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
@@ -358,6 +365,7 @@ public class FXMLDocumentController {
         //knoppen acties docenten
         knopNaarBpToevoegen.setOnAction(event ->{actiesDocent.setVisible(false);bpToevoegen.setVisible(true);});
         knopNaarKeuzeToewijzen.setOnAction(event -> {actiesDocent.setVisible(false); keuzeToewijzen.setVisible(true); keuzeToewijzen();});
+        knopHoofdmenuActiesDocenten.setOnAction(event -> initialize());
         //knoppen naar lijstKeuzeSt
         knopKeuzeStSortStu.setOnAction(event ->{vulTabelKeuzeStOpStudent();});
         knopkeuzeStSortKeuze1.setOnAction(event ->{vulTabelKeuzeStOpKeuze1();});
