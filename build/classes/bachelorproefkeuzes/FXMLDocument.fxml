@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -96,7 +97,6 @@
             <Label fx:id="LabelKeuze1KeuzeToevoegen" layoutX="103.0" layoutY="261.0" text="Keuze1:" />
             <Label fx:id="labelKeuze2KeuzeToevoegen" layoutX="103.0" layoutY="338.0" text="Keuze2:" />
             <Label fx:id="labelKeuze3KeuzeToevoegen" layoutX="103.0" layoutY="415.0" text="Keuze3:" />
-            <TextField fx:id="textfieldPaswoordKeuzeT" layoutX="252.0" layoutY="487.0" />
             <Label fx:id="labelPaswoordKeuzeToevoegen" layoutX="95.0" layoutY="491.0" text="Paswoord:" />
             <Button fx:id="knopBevestigenKeuzeT" layoutX="290.0" layoutY="557.0" mnemonicParsing="false" text="Bevestigen" />
             <Button fx:id="terugKeuzeT" layoutX="533.0" layoutY="591.0" mnemonicParsing="false" text="Hoofdmenu" />
@@ -114,9 +114,10 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <PasswordField fx:id="textfieldPaswoordKeuzeT" layoutX="251.0" layoutY="487.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="inloggenDocent" layoutX="121.0" layoutY="189.0" prefHeight="310.0" prefWidth="408.0" visible="false">
+      <AnchorPane fx:id="inloggenDocent" layoutX="123.0" layoutY="189.0" prefHeight="310.0" prefWidth="408.0" visible="false">
          <children>
             <Label fx:id="labelTitelInloggenDocent" layoutX="139.0" layoutY="24.0" text="Inloggen Docent">
                <font>
@@ -126,7 +127,7 @@
             <Label fx:id="labelNaamInlD" layoutX="60.0" layoutY="88.0" text="Naam: " />
             <Label fx:id="labelPaswoordInlD" layoutX="60.0" layoutY="147.0" text="Paswoord:" />
             <TextField fx:id="textfieldNaamInlD" layoutX="139.0" layoutY="84.0" />
-            <TextField fx:id="textfieldPaswoordInlD" layoutX="139.0" layoutY="143.0" />
+            <PasswordField fx:id="textfieldPaswoordInlD" layoutX="139.0" layoutY="143.0" />
             <Button fx:id="knopInloggenD" layoutX="181.0" layoutY="231.0" mnemonicParsing="false" text="Inloggen" />
             <Button fx:id="knopHoofdmenuInlD" layoutX="314.0" layoutY="263.0" mnemonicParsing="false" text="Hoofdmenu" />
             <Label fx:id="labelFoutDocent" layoutX="86.0" layoutY="196.0" text="Verkeerde naam en/of verkeerd wachtwoord" textFill="RED">
@@ -208,7 +209,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="studentToevoegen" layoutX="117.0" layoutY="96.0" prefHeight="400.0" prefWidth="408.0">
+      <AnchorPane fx:id="studentToevoegen" layoutX="117.0" layoutY="96.0" prefHeight="400.0" prefWidth="408.0" visible="false">
          <children>
             <Button fx:id="terugNaarHoofdmStudToev" layoutX="317.0" layoutY="363.0" mnemonicParsing="false" text="Hoofdmenu" />
             <Button fx:id="terugknopStudToev" layoutX="237.0" layoutY="363.0" mnemonicParsing="false" text="Terug" />
@@ -221,7 +222,6 @@
             <Label fx:id="labelPaswStudToev" layoutX="14.0" layoutY="201.0" text="Paswoord:" />
             <Button fx:id="bevestigknopStudToev" layoutX="176.0" layoutY="273.0" mnemonicParsing="false" text="Bevestigen" />
             <TextField fx:id="textfieldNaamStudToev" layoutX="134.0" layoutY="129.0" />
-            <TextField fx:id="textfieldPaswStudToev" layoutX="134.0" layoutY="197.0" />
             <Label fx:id="labelBevestigStudToev" layoutX="150.0" layoutY="237.0" text="Student toegevoegd">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -233,6 +233,30 @@
                </font>
             </Label>
             <Label fx:id="labelFoutStudToev1" layoutX="144.0" layoutY="235.0" text="Een veld niet ingevuld" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="textfieldPaswStudToev" layoutX="134.0" layoutY="197.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="puntenToewijzen" prefHeight="692.0" prefWidth="661.0">
+         <children>
+            <Label fx:id="labelTitelPuntenToew" layoutX="247.0" layoutY="39.0" text="Punten Toewijzen">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelStudentPuntenToew" layoutX="51.0" layoutY="184.0" text="Student:" />
+            <ComboBox fx:id="comboboxStudentPuntenToew" layoutX="256.0" layoutY="180.0" prefWidth="150.0" />
+            <Label fx:id="labelProefInTeVullenPuntenToew" layoutX="256.0" layoutY="251.0" text="Label" />
+            <Button fx:id="bevestigknopPuntenToew" layoutX="292.0" layoutY="417.0" mnemonicParsing="false" text="Bevestigen" />
+            <Button fx:id="terugknopPuntenToew" layoutX="305.0" layoutY="508.0" mnemonicParsing="false" text="Terug" />
+            <Button fx:id="HoofdmenuPuntenToew" layoutX="521.0" layoutY="508.0" mnemonicParsing="false" text="Hoofdmenu" />
+            <Label fx:id="labelPuntenPuntenToew" layoutX="51.0" layoutY="329.0" text="Punten:" />
+            <TextField fx:id="textfieldPuntenPuntenToew" layoutX="257.0" layoutY="325.0" />
+            <Label fx:id="labelProefVnStPuntenToew" layoutX="51.0" layoutY="251.0" text="Proef van de student:" />
+            <Label fx:id="labelFoutPuntenToew" layoutX="9.0" layoutY="375.0" prefHeight="19.0" prefWidth="639.0" text="De waarde van het punt klopt niet. Het punt mag niet groter zijn dan 20 en mag geen kommagetal zijn" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
