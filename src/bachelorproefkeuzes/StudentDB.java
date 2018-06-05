@@ -31,6 +31,24 @@ public class StudentDB {
         }
     }
     
+    public void voegStudToe(Student student){
+        String sql = "insert into student (naam,paswoord)" + "values (?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
+        // en om te vermijden da een tabel wordt verwijderd door iemand
+        
+        PreparedStatement stmt;
+        try {
+            stmt = connectie.prepareStatement(sql,
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, student.getNaam());
+            stmt.setString(2,student.getPaswoord());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+    }
+    
     public ArrayList<String> getNamenStudenten() {
         try {
             String sql = "select naam from student";

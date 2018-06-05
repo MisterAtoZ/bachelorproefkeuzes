@@ -243,6 +243,42 @@ public class FXMLDocumentController {
     private Button knopTerugKeuzeToewijzen;
     
     @FXML
+    private AnchorPane studentToevoegen;
+
+    @FXML
+    private Button terugNaarHoofdmStudToev;
+
+    @FXML
+    private Button terugknopStudToev;
+
+    @FXML
+    private Label titellabelStudToev;
+
+    @FXML
+    private Label labelNaamStudToev;
+
+    @FXML
+    private Label labelPaswStudToev;
+
+    @FXML
+    private Button bevestigknopStudToev;
+
+    @FXML
+    private TextField textfieldNaamStudToev;
+
+    @FXML
+    private TextField textfieldPaswStudToev;
+
+    @FXML
+    private Label labelBevestigStudToev;
+
+    @FXML
+    private Label labelFoutStudToev;
+
+    @FXML
+    private Label labelFoutStudToev1;
+    
+    @FXML
     private TableView<BP> bpTabel;
 
     @FXML
@@ -325,6 +361,7 @@ public class FXMLDocumentController {
         LijstKeuzeSt.setVisible(false);
         keuzeToewijzen.setVisible(false);
         actiesDocent.setVisible(false);
+        studentToevoegen.setVisible(false);
         
         labelFoutKeuzeT.setVisible(false);
         labelFoutDocent.setVisible(false);
@@ -334,6 +371,9 @@ public class FXMLDocumentController {
         labelFoutKeuzeToew1.setVisible(false);
         labelFoutKeuzeToew2.setVisible(false);
         labelOkeKeuzeToewijzen.setVisible(false);
+        labelFoutStudToev.setVisible(false);
+        labelFoutStudToev1.setVisible(false);
+        labelBevestigStudToev.setVisible(false);
         refresh();
     }
     
@@ -366,6 +406,7 @@ public class FXMLDocumentController {
         knopNaarBpToevoegen.setOnAction(event ->{actiesDocent.setVisible(false);bpToevoegen.setVisible(true);});
         knopNaarKeuzeToewijzen.setOnAction(event -> {actiesDocent.setVisible(false); keuzeToewijzen.setVisible(true); keuzeToewijzen();});
         knopHoofdmenuActiesDocenten.setOnAction(event -> initialize());
+        knopNaarStudentToevoegen.setOnAction(event ->{actiesDocent.setVisible(false); studentToevoegen.setVisible(true);});
         //knoppen naar lijstKeuzeSt
         knopKeuzeStSortStu.setOnAction(event ->{vulTabelKeuzeStOpStudent();});
         knopkeuzeStSortKeuze1.setOnAction(event ->{vulTabelKeuzeStOpKeuze1();});
@@ -381,6 +422,36 @@ public class FXMLDocumentController {
         knopBevestigenKeuzeToew.setOnAction(event->voegDefKeuzeToe());
         knopHoofdmenuKeuzeToev.setOnAction(event -> initialize());
         knopTerugKeuzeToewijzen.setOnAction(event ->{actiesDocent.setVisible(true); keuzeToewijzen.setVisible(false);});
+        //knoppen student toevoegen
+        terugNaarHoofdmStudToev.setOnAction(event -> initialize());
+        terugknopStudToev.setOnAction(event->{actiesDocent.setVisible(true); studentToevoegen.setVisible(false);});
+        bevestigknopStudToev.setOnAction(event->studentToevoegen());
+    }
+    
+    public void studentToevoegen() {
+        //Student toevoegen
+        String naam = textfieldNaamStudToev.getText();
+        String paswoord = textfieldPaswStudToev.getText();
+        Student studToev = new Student(naam, paswoord);
+        ArrayList<String> studentInDeDB = new ArrayList(modelStudent.getNamenStudenten());
+        
+        if(naam.isEmpty() || paswoord.isEmpty()) {
+            labelFoutStudToev1.setVisible(true);
+            labelFoutStudToev.setVisible(false);
+            labelBevestigStudToev.setVisible(false);
+        }
+        else if(studentInDeDB.contains(naam)) {
+            //naam zit al in de lijst
+            labelFoutStudToev1.setVisible(false);
+            labelFoutStudToev.setVisible(true);
+            labelBevestigStudToev.setVisible(false);
+        }
+        else {
+            modelStudent.voegStudToe(studToev);
+            labelFoutStudToev1.setVisible(false);
+            labelFoutStudToev.setVisible(false);
+            labelBevestigStudToev.setVisible(true);
+        }      
     }
     
     public void keuzeToewijzen() {

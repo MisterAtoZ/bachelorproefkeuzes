@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Lennert
+ * @author Jonathan
  */
 public class Bachelorproefkeuzes extends Application {
     //toevoegen voor git

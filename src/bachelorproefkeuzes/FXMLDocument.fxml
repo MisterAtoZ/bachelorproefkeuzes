@@ -136,7 +136,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="actiesDocent" layoutX="133.0" layoutY="141.0" prefHeight="410.0" prefWidth="384.0">
+      <AnchorPane fx:id="actiesDocent" layoutX="133.0" layoutY="141.0" prefHeight="410.0" prefWidth="384.0" visible="false">
          <children>
             <Button fx:id="knopNaarKeuzeToewijzen" layoutX="140.0" layoutY="102.0" mnemonicParsing="false" text="Keuze Toewijzen" />
             <Button fx:id="knopNaarPuntenToewijzen" layoutX="137.0" layoutY="154.0" mnemonicParsing="false" text="Punten Toewijzen" />
@@ -202,6 +202,37 @@
                </font>
             </Label>
             <Label fx:id="labelFoutKeuzeToew2" layoutX="73.0" layoutY="287.0" text="Nog geen student heeft zijn keuzes doorgegeven" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="studentToevoegen" layoutX="117.0" layoutY="96.0" prefHeight="400.0" prefWidth="408.0">
+         <children>
+            <Button fx:id="terugNaarHoofdmStudToev" layoutX="317.0" layoutY="363.0" mnemonicParsing="false" text="Hoofdmenu" />
+            <Button fx:id="terugknopStudToev" layoutX="237.0" layoutY="363.0" mnemonicParsing="false" text="Terug" />
+            <Label fx:id="titellabelStudToev" layoutX="118.0" layoutY="34.0" text="Student toevoegen">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelNaamStudToev" layoutX="14.0" layoutY="133.0" text="Naam student:" />
+            <Label fx:id="labelPaswStudToev" layoutX="14.0" layoutY="201.0" text="Paswoord:" />
+            <Button fx:id="bevestigknopStudToev" layoutX="176.0" layoutY="273.0" mnemonicParsing="false" text="Bevestigen" />
+            <TextField fx:id="textfieldNaamStudToev" layoutX="134.0" layoutY="129.0" />
+            <TextField fx:id="textfieldPaswStudToev" layoutX="134.0" layoutY="197.0" />
+            <Label fx:id="labelBevestigStudToev" layoutX="150.0" layoutY="237.0" text="Student toegevoegd">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelFoutStudToev" layoutX="140.0" layoutY="237.0" text="Deze Student bestaat al" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelFoutStudToev1" layoutX="144.0" layoutY="235.0" text="Een veld niet ingevuld" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
