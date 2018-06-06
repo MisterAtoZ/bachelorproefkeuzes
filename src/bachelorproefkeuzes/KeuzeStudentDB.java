@@ -33,7 +33,7 @@ public class KeuzeStudentDB {
     
     public ArrayList<String> getKeuzesVanStudent(String naam) {
         try {
-            String sql = "select * FROM keuzestudent WHERE student = \""+naam+"\""; //"\"" + theFirst + "\""
+            String sql = "select * FROM keuzestudent WHERE student = \""+naam+"\"";
             PreparedStatement stmt =
                     connectie.prepareStatement(sql);
             ResultSet results = stmt.executeQuery();
