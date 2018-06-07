@@ -466,6 +466,10 @@ public class FXMLDocumentController {
         knopBevestigenKeuzeToew.setOnAction(event->voegDefKeuzeToe());
         knopHoofdmenuKeuzeToev.setOnAction(event -> initialize());
         knopTerugKeuzeToewijzen.setOnAction(event ->{actiesDocent.setVisible(true); keuzeToewijzen.setVisible(false);});
+        comboboxStudentKeuzeToew.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+            String naam = comboboxStudentKeuzeToew.getValue();
+            ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
+            comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);}); 
         //knoppen student toevoegen
         terugNaarHoofdmStudToev.setOnAction(event -> initialize());
         terugknopStudToev.setOnAction(event->{actiesDocent.setVisible(true); studentToevoegen.setVisible(false);});
@@ -542,9 +546,9 @@ public class FXMLDocumentController {
         comboboxStudentKeuzeToew.setItems(namenKeuzeLijst);
         comboboxStudentKeuzeToew.setValue(namenKeuzeLijst.get(0));
         String naam = comboboxStudentKeuzeToew.getValue();
-        ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
+        //ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
 
-        comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);//query nog voor schrijven!
+        //comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);//query nog voor schrijven!
         }
     }
     
