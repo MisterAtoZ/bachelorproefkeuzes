@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bachelorproefkeuzes;
 
 import java.sql.Connection;
@@ -15,12 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Klasse die de verbinding met de database van de docent maakt
+ * 
  * @author Jonathan
  */
 public class DocentDB {
     private Connection connectie;
     
+    /**
+     * Maakt de verbinding met de localhost, de tabel bpkeuzes uit de database
+     */
     public DocentDB(){
         try {
             connectie = DriverManager.getConnection( "jdbc:mysql://localhost:3306/bpkeuzes",
@@ -30,6 +29,11 @@ public class DocentDB {
         }
     }
     
+    /**
+     * getter van de docenten uit de database
+     * 
+     * @return String met de docenten 
+     */
     public ArrayList<Docent> getDocenten(){ 
         try {
             String sql = "select * from docent";
