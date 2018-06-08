@@ -14,6 +14,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Klasse die de controller is van het programma
+ * 
+ * @author Jonathan
+ */
 public class FXMLDocumentController {
     
     @FXML
@@ -409,6 +414,10 @@ public class FXMLDocumentController {
         refresh();
     }
     
+    /**
+     * Functie die constant wordt gerunt om te controleren of er iets is verandert
+     * 
+     */
     public void refresh() {
         //knoppen hoofdmenu
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
@@ -472,6 +481,9 @@ public class FXMLDocumentController {
             labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));}); 
     }
     
+    /**
+     * functie om het anchorpane punten toewijzen te laden 
+     */
     public void puntenToewijzen() {
         ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
         comboboxStudentPuntenToew.setItems(namen);
@@ -480,6 +492,9 @@ public class FXMLDocumentController {
         labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));
     }
     
+    /**
+     * functie om de ingevulde punten toe te wijzen aan de ingevulde student
+     */
     public void bevestigPuntenToewijzen() {
         String puntenSt = textfieldPuntenPuntenToew.getText();
         int punten = Integer.parseInt(puntenSt);
@@ -498,8 +513,10 @@ public class FXMLDocumentController {
         }
     }
     
+    /**
+     * Functie om de ingevulde student toe te voegen
+     */
     public void studentToevoegen() {
-        //Student toevoegen
         String naam = textfieldNaamStudToev.getText();
         String paswoord = textfieldPaswStudToev.getText();
         Student studToev = new Student(naam, paswoord);
@@ -524,6 +541,9 @@ public class FXMLDocumentController {
         }      
     }
     
+    /**
+     * Functie om het anchorpane van keuze toewijzen te laden
+     */
     public void keuzeToewijzen() {
         ObservableList<String> namenKeuzeLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
         if(namenKeuzeLijst.isEmpty()==true) {
@@ -541,6 +561,9 @@ public class FXMLDocumentController {
         }
     }
     
+    /**
+     * functie om de keuze toe te voegen
+     */
     public void voegDefKeuzeToe() {
         //keuze toevoegen aan de lijst
         String student = comboboxStudentKeuzeToew.getValue();
@@ -569,7 +592,9 @@ public class FXMLDocumentController {
         }
     }
         
-    
+    /**
+     * Functie om de tabel keuzeStudenten te vullen gesorteerd op de student
+     */
     public void vulTabelKeuzeStOpStudent() {
         ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpStudent();
         ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
@@ -584,6 +609,9 @@ public class FXMLDocumentController {
         tabelKeuzeSt.setItems(keuzes);
     }
     
+    /**
+     * Functie om de tabel keuzeStudenten te vullen gesorteerd op keuze1
+     */
     public void vulTabelKeuzeStOpKeuze1() {
         ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze1();
         ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
@@ -598,6 +626,9 @@ public class FXMLDocumentController {
         tabelKeuzeSt.setItems(keuzes);
     }
     
+    /**
+     * Functie om de tabel keuzeStudenten te vullen gesorteerd op keuze2
+     */
     public void vulTabelKeuzeStOpKeuze2() {
         ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze2();
         ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
@@ -612,6 +643,9 @@ public class FXMLDocumentController {
         tabelKeuzeSt.setItems(keuzes);
     }
     
+    /**
+     * Functie om de tabel keuzeStudenten te vullen gesorteerd op keuze3
+     */
     public void vulTabelKeuzeStOpKeuze3() {
         ArrayList<KeuzeStudent> alles = modelKeuzeSt.getProevenOpKeuze3();
         ObservableList<KeuzeStudentProp> keuzes = FXCollections.observableArrayList();
@@ -626,6 +660,11 @@ public class FXMLDocumentController {
         tabelKeuzeSt.setItems(keuzes);
     }
        
+    /**
+     * Functie om te controleren of de docent zijn wachtwoord klopt
+     * 
+     * @return true als het paswoord klopt
+     */
     public boolean controlerenDocent() {
         String naam = textfieldNaamInlD.getText();
         String paswoord = textfieldPaswoordInlD.getText();
@@ -643,6 +682,9 @@ public class FXMLDocumentController {
         return false;
     }
     
+    /**
+     * Functie om het anchorpane van keuze toevoegen te laden
+     */
     public void keuzeToevoegen() {
         ObservableList<String> namen = FXCollections.observableArrayList(modelStudent.fillCombo());
         comboboxNaamKeuzeT.setItems(namen);
@@ -653,6 +695,9 @@ public class FXMLDocumentController {
         comboboxKeuze3KeuzeT.setItems(bps);
     }
        
+    /**
+     * Functie om de keuze van de student toe te voegen
+     */
     public void voegKeuzeToe() {
         String naam = comboboxNaamKeuzeT.getValue();
         String keuze1 = comboboxKeuze1KeuzeT.getValue();
@@ -661,10 +706,10 @@ public class FXMLDocumentController {
         String paswoord = textfieldPaswoordKeuzeT.getText();
  
         ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
-        
-       if(namenInLijst.contains(naam)==false || namenInLijst.isEmpty()){
+                        
+        if(namenInLijst.contains(naam)==false || namenInLijst.isEmpty()){
             labelNaamAlIngediend.setVisible(false);
-            if(modelKeuzeSt.isHetWWJuist(naam, paswoord)==true) {
+            if(controlerenWachtwoordStudent(naam, paswoord)) {
                 if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
                     modelKeuzeSt.voegKeuzesStToe(naam, keuze1, keuze2, keuze3);
                     initialize();
@@ -680,15 +725,40 @@ public class FXMLDocumentController {
         }
     }
     
+    /**
+     * functie om te controleren of het ingegeven paswoord van de student klopt
+     * 
+     * @param naam van de student
+     * @param paswoord van de student
+     * @return true als het paswoord correct is
+     */
+    public boolean controlerenWachtwoordStudent(String naam, String paswoord) {
+        ObservableList<Student> studenten = FXCollections.observableArrayList(modelStudent.getStudenten());
+        for (int i=0; i<studenten.size();i++) {
+            if(studenten.get(i).getNaam().equals(naam)) {
+                if(studenten.get(i).getPaswoord().equals(paswoord)) {
+                    return true;
+                }
+                else {return false;}
+            }
+        } 
+        return false;
+    }
+    
+    /**
+     * Functie om een BP toe te voegen 
+     */
     public void voegBPToe(){
         Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
                                                 beschrijvingen.getText());
         modelBp.voegToe(nieuw);
         ArrayList<Bachelorproef> alles = modelBp.getProeven();
         labelOpgeslagen.setVisible(true);
-        vulTabelBp();
     }
     
+    /**
+     * Functie om de tabel van de verschillende bachelorproeven te vullen
+     */
     public void vulTabelBp() {
         ArrayList<Bachelorproef> alles = modelBp.getProeven();
         ObservableList<BP> bps = FXCollections.observableArrayList();
@@ -701,6 +771,9 @@ public class FXMLDocumentController {
         bpTabel.setItems(bps);
     }
     
+    /**
+     * Functie om de tabel keuze op naam te sorteren
+     */
     public void vulTabelKeuzeOpNaam() {
         ArrayList<Keuze> alles = modelKeuze.getProevenOpNaam();
         ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
@@ -714,6 +787,9 @@ public class FXMLDocumentController {
         tabelKeuze.setItems(keuzes);
     }
         
+    /**
+     * Functie om de tabel keuze op proef te sorteren
+     */
     public void vulTabelKeuzeOpProef() {
         ArrayList<Keuze> alles = modelKeuze.getProevenOpProef();
         ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();
@@ -727,6 +803,9 @@ public class FXMLDocumentController {
         tabelKeuze.setItems(keuzes);
     }
     
+    /**
+     * Functie om de tabel keuze op punten te sorteren
+     */
     public void vulTabelKeuzeOpPunten() {
         ArrayList<Keuze> alles = modelKeuze.getProevenOpPunten();
         ObservableList<KeuzeProp> keuzes = FXCollections.observableArrayList();

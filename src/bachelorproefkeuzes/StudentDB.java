@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bachelorproefkeuzes;
 
 import java.sql.Connection;
@@ -15,13 +10,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * De klasse die de verbinding met de database maakt/onderhoudt
+ * 
  * @author Jonathan
  */
 public class StudentDB {
     
     private Connection connectie;
     
+    /**
+     * maakt de verbinding met de localhost, de tabel van de database bpkeuzes
+     * 
+     */
     public StudentDB(){
         try {
             connectie = DriverManager.getConnection( "jdbc:mysql://localhost:3306/bpkeuzes",
@@ -31,6 +31,11 @@ public class StudentDB {
         }
     }
     
+    /**
+     * Functie om een student toe te voegen in de database
+     * 
+     * @param student die moet worden toegevoegd in de database
+     */
     public void voegStudToe(Student student){
         String sql = "insert into student (naam,paswoord)" + "values (?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
         // en om te vermijden da een tabel wordt verwijderd door iemand
@@ -49,6 +54,11 @@ public class StudentDB {
         }     
     }
     
+    /**
+     * getter van de namen van de studenten 
+     * 
+     * @return ArrayList<String> met de namen van de studenten
+     */
     public ArrayList<String> getNamenStudenten() {
         try {
             String sql = "select naam from student";
@@ -68,6 +78,11 @@ public class StudentDB {
         }  
     }
     
+    /**
+     * Geeft een ArrayList met alle studenten in de database
+     * 
+     * @return ArrayList met de studenten
+     */
     public ArrayList<Student> getStudenten(){ 
         try {
             String sql = "select * from student ORDER by naam";
@@ -91,6 +106,12 @@ public class StudentDB {
         }
     }
     
+    /**
+     * Functie om de naam van de student uit de database te halen
+     * gebruikt voor de comboboxen te vullen
+     * 
+     * @return ArrayList met de namen 
+     */
     public ArrayList<String> fillCombo(){ 
         try {
             String sql = "select * from student ORDER by naam";

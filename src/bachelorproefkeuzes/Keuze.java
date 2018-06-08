@@ -76,6 +76,4 @@ public class Keuze {
     public void setPunten(int punten) {
         this.punten = punten;
     }
-    
-    
 }
