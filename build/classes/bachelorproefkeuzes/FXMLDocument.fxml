@@ -249,7 +249,7 @@
             </Label>
             <Label fx:id="labelStudentPuntenToew" layoutX="51.0" layoutY="184.0" text="Student:" />
             <ComboBox fx:id="comboboxStudentPuntenToew" layoutX="256.0" layoutY="180.0" prefWidth="150.0" />
-            <Label fx:id="labelProefInTeVullenPuntenToew" layoutX="256.0" layoutY="251.0" text="Label" />
+            <Label fx:id="labelProefInTeVullenPuntenToew" layoutX="256.0" layoutY="251.0" />
             <TextField fx:id="textfieldPuntenPuntenToew" layoutX="257.0" layoutY="325.0" />
             <Button fx:id="bevestigknopPuntenToew" layoutX="292.0" layoutY="417.0" mnemonicParsing="false" text="Bevestigen" />
             <Button fx:id="terugknopPuntenToew" layoutX="305.0" layoutY="508.0" mnemonicParsing="false" text="Terug" />

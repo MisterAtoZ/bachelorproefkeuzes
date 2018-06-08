@@ -487,9 +487,11 @@ public class FXMLDocumentController {
     public void puntenToewijzen() {
         ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
         comboboxStudentPuntenToew.setItems(namen);
-        comboboxStudentPuntenToew.setValue(namen.get(0));
+        //comboboxStudentPuntenToew.setValue(namen.get(0));
         //functie maken om bij een bepaakde student de keuzen eruit te halen
-        labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));
+        //labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));
+        labelFoutPuntenToew.setVisible(false);
+        labelToegewPuntenToew.setVisible(false);
     }
     
     /**
@@ -497,19 +499,27 @@ public class FXMLDocumentController {
      */
     public void bevestigPuntenToewijzen() {
         String puntenSt = textfieldPuntenPuntenToew.getText();
-        int punten = Integer.parseInt(puntenSt);
         
-        if(punten>20 || punten<0) {
-            //gaat niet
+        try{
+        int num = Integer.parseInt(puntenSt);
+            // is an integer!
+            int punten = Integer.parseInt(puntenSt);
+            if(punten > 20 || punten < 0) {
+                //gaat niet
+                labelFoutPuntenToew.setVisible(true);
+                labelToegewPuntenToew.setVisible(false);
+            }
+        else {
+                //functie maken voor de sqls
+                String student = comboboxStudentPuntenToew.getValue();
+                modelKeuze.updatePunten(punten, student);
+                labelFoutPuntenToew.setVisible(false);
+                labelToegewPuntenToew.setVisible(true);
+            }
+        } catch (NumberFormatException e) {
+            // not an integer!
             labelFoutPuntenToew.setVisible(true);
             labelToegewPuntenToew.setVisible(false);
-        }
-        else {
-            //functie maken voor de sqls
-            String student = comboboxStudentPuntenToew.getValue();
-            modelKeuze.updatePunten(punten, student);
-            labelFoutPuntenToew.setVisible(false);
-            labelToegewPuntenToew.setVisible(true);
         }
     }
     
