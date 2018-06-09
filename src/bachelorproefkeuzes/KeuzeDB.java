@@ -32,6 +32,25 @@ public class KeuzeDB {
     }
     
     /**
+     * Functie om een rij uit de database te verwijderen
+     * 
+     * @param student die uit de tabel keuze wordt verwijderd
+     */
+    public void deleteKeuze(String student) {
+        String sql = "DELETE FROM keuze WHERE student = \""+student+"\"";
+        
+        PreparedStatement stmt;
+        try {
+            stmt = connectie.prepareStatement(sql,
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(KeuzeDB.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    /**
      * Functie om de proef van de gegeven student te krijgen
      * 
      * @param naam van de student 
@@ -70,9 +89,6 @@ public class KeuzeDB {
         try {
             stmt = connectie.prepareStatement(sql,
                             PreparedStatement.RETURN_GENERATED_KEYS);
-            //stmt.setString(1, naam);
-            //stmt.setString(2,proef);
-            //stmt.setInt(3, punten);
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
