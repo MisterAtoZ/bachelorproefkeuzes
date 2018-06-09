@@ -174,18 +174,18 @@
             <Button fx:id="knopHoofdmenuKeuzeSt" layoutX="286.0" layoutY="631.0" mnemonicParsing="false" text="Hoofdmenu" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="keuzeToewijzen" layoutX="103.0" layoutY="99.0" prefHeight="494.0" prefWidth="446.0" visible="false">
+      <AnchorPane fx:id="keuzeToewijzen" layoutX="103.0" layoutY="99.0" prefHeight="494.0" prefWidth="446.0">
          <children>
             <Label fx:id="labelTitelKeuzeToewijzen" layoutX="152.0" layoutY="42.0" text="Keuze toewijzen">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <ComboBox fx:id="comboboxStudentKeuzeToew" layoutX="148.0" layoutY="145.0" prefWidth="150.0" />
             <ComboBox fx:id="comboboxKeuzeKeuzeToew" layoutX="148.0" layoutY="234.0" prefWidth="150.0" />
             <Label fx:id="labelStudentKeuzeToew" layoutX="47.0" layoutY="149.0" text="Student:" />
             <Label fx:id="labelKeuzeKeuzeToew" layoutX="47.0" layoutY="238.0" text="Keuze:" />
-            <Label fx:id="labelFoutKeuzeToew" layoutX="138.0" layoutY="282.0" prefHeight="26.0" prefWidth="170.0" text="Het vak keuze niet ingevuld" textFill="RED">
+            <Label fx:id="labelFoutKeuzeToew" layoutX="133.0" layoutY="283.0" prefHeight="26.0" prefWidth="180.0" text="Het vak keuze niet ingevuld" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -193,17 +193,17 @@
             <Button fx:id="knopBevestigenKeuzeToew" layoutX="186.0" layoutY="341.0" mnemonicParsing="false" text="Bevestigen" />
             <Button fx:id="knopTerugKeuzeToewijzen" layoutX="199.0" layoutY="418.0" mnemonicParsing="false" text="Terug" />
             <Button fx:id="knopHoofdmenuKeuzeToev" layoutX="346.0" layoutY="418.0" mnemonicParsing="false" text="Hoofdmenu" />
-            <Label fx:id="labelFoutKeuzeToew1" layoutX="68.0" layoutY="287.0" text="Deze Student heeft al keuze toegewezen gekregen" textFill="RED">
+            <Label fx:id="labelFoutKeuzeToew1" layoutX="68.0" layoutY="286.0" text="Deze Student heeft al keuze toegewezen gekregen" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="labelOkeKeuzeToewijzen" layoutX="120.0" layoutY="287.0" text="De Keuze is succesvol opgeslagen">
+            <Label fx:id="labelOkeKeuzeToewijzen" layoutX="120.0" layoutY="286.0" text="De Keuze is succesvol opgeslagen">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="labelFoutKeuzeToew2" layoutX="73.0" layoutY="287.0" text="Nog geen student heeft zijn keuzes doorgegeven" textFill="RED">
+            <Label fx:id="labelFoutKeuzeToew2" layoutX="65.0" layoutY="193.0" text="Er zijn geen keuzes meer om te worden toegewezen" textFill="RED">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

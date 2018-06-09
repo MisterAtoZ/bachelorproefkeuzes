@@ -512,7 +512,7 @@ public class FXMLDocumentController {
             String naam = comboboxStudentKeuzeToew.getValue();
             ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
             comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);
-            comboboxKeuzeKeuzeToew.setValue(keuzesVanStudent.get(0));}); 
+            /*comboboxKeuzeKeuzeToew.setValue());*/}); 
         //knoppen student toevoegen
         terugNaarHoofdmStudToev.setOnAction(event -> initialize());
         terugknopStudToev.setOnAction(event->{actiesDocent.setVisible(true); studentToevoegen.setVisible(false);});
@@ -619,19 +619,25 @@ public class FXMLDocumentController {
      * Functie om het anchorpane van keuze toewijzen te laden
      */
     public void keuzeToewijzen() {
-        ObservableList<String> namenKeuzeLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
-        if(namenKeuzeLijst.isEmpty()==true) {
+        ObservableList<String> namenKeuzeStLijst = FXCollections.observableArrayList(modelKeuzeSt.getNamenStudenten());
+        ObservableList<String> namenKeuzeLijst = FXCollections.observableArrayList(modelKeuze.getStudenten());
+        ArrayList<String> namen = new ArrayList();
+        for(int i=0; i<namenKeuzeStLijst.size();i++) {
+            if(!namenKeuzeLijst.contains(namenKeuzeStLijst.get(i))) {
+                namen.add(namenKeuzeStLijst.get(i));
+            }
+        }
+        ObservableList<String> defNamen = FXCollections.observableArrayList(namen);
+        if(defNamen.isEmpty()) {
             labelFoutKeuzeToew.setVisible(false);
             labelFoutKeuzeToew1.setVisible(false);
             labelFoutKeuzeToew2.setVisible(true);
+            comboboxStudentKeuzeToew.setItems(defNamen);
         }
         else {
-        comboboxStudentKeuzeToew.setItems(namenKeuzeLijst);
-        comboboxStudentKeuzeToew.setValue(namenKeuzeLijst.get(0));
-        String naam = comboboxStudentKeuzeToew.getValue();
-        //ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
-
-        //comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);//query nog voor schrijven!
+        comboboxStudentKeuzeToew.setItems(defNamen);
+        comboboxStudentKeuzeToew.setValue(defNamen.get(0));
+        labelFoutKeuzeToew2.setVisible(false);
         }
     }
     
@@ -643,7 +649,14 @@ public class FXMLDocumentController {
         String student = comboboxStudentKeuzeToew.getValue();
         String keuze = comboboxKeuzeKeuzeToew.getValue();
         
-        if(keuze.isEmpty()!=true) {
+        if(comboboxKeuzeKeuzeToew.getValue()==null) {
+            labelFoutKeuzeToew.setVisible(true);
+            labelFoutKeuzeToew1.setVisible(false);
+            labelFoutKeuzeToew2.setVisible(false);
+            labelOkeKeuzeToewijzen.setVisible(false);
+            keuzeToewijzen();
+        }
+        else {
             //controleren of de student al in de lijst zit
             //keuze toevoegen
             ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuze.getStudenten());
@@ -653,6 +666,7 @@ public class FXMLDocumentController {
                 labelFoutKeuzeToew1.setVisible(true);
                 labelOkeKeuzeToewijzen.setVisible(false);
                 labelFoutKeuzeToew.setVisible(false);
+                labelOkeKeuzeToewijzen.setVisible(false);
             }
             else {
                 labelFoutKeuzeToew.setVisible(false);
@@ -661,10 +675,8 @@ public class FXMLDocumentController {
                 int punten = 0;
                 modelKeuze.voegKeuzesToe(student, keuze, punten);
                 labelOkeKeuzeToewijzen.setVisible(true);
+                keuzeToewijzen();
             }
-        }
-        else {
-            labelFoutKeuzeToew.setVisible(true);labelFoutKeuzeToew1.setVisible(false); labelFoutKeuzeToew2.setVisible(false);    
         }
     }
         
