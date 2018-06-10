@@ -57,7 +57,7 @@ public class StudentDB {
     /**
      * getter van de namen van de studenten 
      * 
-     * @return ArrayList<String> met de namen van de studenten
+     * @return ArrayList met de namen van de studenten
      */
     public ArrayList<String> getNamenStudenten() {
         try {
