@@ -206,7 +206,7 @@ public class KeuzeDB {
      */
     public ArrayList<Keuze> getProevenOpPunten(){ 
         try {
-            String sql = "select * from keuze ORDER by punten";
+            String sql = "select * from keuze ORDER by punten DESC";
             PreparedStatement stmt =
                     connectie.prepareStatement(sql);
             ResultSet results = stmt.executeQuery();

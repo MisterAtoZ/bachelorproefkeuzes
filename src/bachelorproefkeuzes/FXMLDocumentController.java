@@ -21,11 +21,14 @@ import javafx.scene.layout.AnchorPane;
  */
 public class FXMLDocumentController {
     
-    @FXML
+     @FXML
     private AnchorPane hoofdmenu;
 
     @FXML
     private Button knopNaarLijstBp;
+
+    @FXML
+    private Button knopNaarLijstToewijzigingenkeuzes;
 
     @FXML
     private Label labelHoofdmenu;
@@ -43,22 +46,25 @@ public class FXMLDocumentController {
     private Label labelVoorDocenten;
 
     @FXML
-    private Button knopNaarLijstToewijzigingenkeuzes;
-
-    @FXML
     private Button knopNaarInloggenDocent;
 
     @FXML
     private AnchorPane lijstBp;
 
     @FXML
+    private TableView<BP> bpTabel;
+
+    @FXML
+    private TableColumn<BP, String> titelKolom;
+
+    @FXML
+    private TableColumn<BP, String> beschrijvingKolom;
+
+    @FXML
     private Label labelTitelLijst;
 
     @FXML
     private Button terugknopLijst;
-    
-    @FXML
-    private Button knopTerugLijstBp;
 
     @FXML
     private AnchorPane bpToevoegen;
@@ -67,16 +73,19 @@ public class FXMLDocumentController {
     private TextField titel;
 
     @FXML
-    private Button voegBPtoe;
+    private TextArea beschrijvingen;
 
     @FXML
-    private TextArea beschrijvingen;
+    private Button voegBPtoe;
 
     @FXML
     private Label labelTitel;
 
     @FXML
     private Label labelBeschrijving;
+
+    @FXML
+    private Button knopTerugLijstBp;
 
     @FXML
     private Button terugknopBpToevoegen;
@@ -86,6 +95,9 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelOpgeslagen;
+
+    @FXML
+    private Label labelFoutBpToev;
 
     @FXML
     private AnchorPane lijstKeuze;
@@ -106,6 +118,18 @@ public class FXMLDocumentController {
     private Button sorteerknopPunten;
 
     @FXML
+    private TableView<KeuzeProp> tabelKeuze;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeNaam;
+
+    @FXML
+    private TableColumn<KeuzeProp, String> kolomKeuzeProef;
+
+    @FXML
+    private TableColumn<KeuzeProp, Number> kolomKeuzePunten;
+
+    @FXML
     private AnchorPane keuzeToevoegen;
 
     @FXML
@@ -124,16 +148,28 @@ public class FXMLDocumentController {
     private Label labelKeuze3KeuzeToevoegen;
 
     @FXML
-    private PasswordField textfieldPaswoordKeuzeT;
-
-    @FXML
     private Label labelPaswoordKeuzeToevoegen;
 
     @FXML
-    private Button knopBevestigenKeuzeT;
+    private Button terugKeuzeT;
 
     @FXML
-    private Button terugKeuzeT;
+    private ComboBox<String> comboboxNaamKeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze1KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze2KeuzeT;
+
+    @FXML
+    private ComboBox<String> comboboxKeuze3KeuzeT;
+
+    @FXML
+    private PasswordField textfieldPaswoordKeuzeT;
+
+    @FXML
+    private Button knopBevestigenKeuzeT;
 
     @FXML
     private Label labelFoutKeuzeT;
@@ -175,6 +211,9 @@ public class FXMLDocumentController {
     private Button knopNaarKeuzeToewijzen;
 
     @FXML
+    private Button knopNaarKeuzeVerwijderen;
+
+    @FXML
     private Button knopNaarPuntenToewijzen;
 
     @FXML
@@ -185,12 +224,27 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelTitelActiesDocent;
-    
+
     @FXML
     private Button knopHoofdmenuActiesDocenten;
 
     @FXML
     private AnchorPane LijstKeuzeSt;
+
+    @FXML
+    private TableView<KeuzeStudentProp> tabelKeuzeSt;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStStudent;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze1;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze2;
+
+    @FXML
+    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
 
     @FXML
     private Label labelTitelKeuzeSt;
@@ -217,6 +271,12 @@ public class FXMLDocumentController {
     private Label labelTitelKeuzeToewijzen;
 
     @FXML
+    private ComboBox<String> comboboxStudentKeuzeToew;
+
+    @FXML
+    private ComboBox<String> comboboxKeuzeKeuzeToew;
+
+    @FXML
     private Label labelStudentKeuzeToew;
 
     @FXML
@@ -229,22 +289,22 @@ public class FXMLDocumentController {
     private Button knopBevestigenKeuzeToew;
 
     @FXML
+    private Button knopTerugKeuzeToewijzen;
+
+    @FXML
     private Button knopHoofdmenuKeuzeToev;
 
     @FXML
     private Label labelFoutKeuzeToew1;
-    
+
     @FXML
-    private Button knopTerugKeuzeToewijzen;
-    
+    private Label labelOkeKeuzeToewijzen;
+
+    @FXML
+    private Label labelFoutKeuzeToew2;
+
     @FXML
     private AnchorPane studentToevoegen;
-
-    @FXML
-    private Button terugNaarHoofdmStudToev;
-
-    @FXML
-    private Button terugknopStudToev;
 
     @FXML
     private Label titellabelStudToev;
@@ -256,13 +316,7 @@ public class FXMLDocumentController {
     private Label labelPaswStudToev;
 
     @FXML
-    private Button bevestigknopStudToev;
-
-    @FXML
     private TextField textfieldNaamStudToev;
-
-    @FXML
-    private PasswordField textfieldPaswStudToev;
 
     @FXML
     private Label labelBevestigStudToev;
@@ -272,7 +326,19 @@ public class FXMLDocumentController {
 
     @FXML
     private Label labelFoutStudToev1;
-    
+
+    @FXML
+    private PasswordField textfieldPaswStudToev;
+
+    @FXML
+    private Button bevestigknopStudToev;
+
+    @FXML
+    private Button terugknopStudToev;
+
+    @FXML
+    private Button terugNaarHoofdmStudToev;
+
     @FXML
     private AnchorPane puntenToewijzen;
 
@@ -286,7 +352,7 @@ public class FXMLDocumentController {
     private ComboBox<String> comboboxStudentPuntenToew;
 
     @FXML
-    private Label labelProefInTeVullenPuntenToew;
+    private TextField textfieldPuntenPuntenToew;
 
     @FXML
     private Button bevestigknopPuntenToew;
@@ -298,80 +364,14 @@ public class FXMLDocumentController {
     private Button HoofdmenuPuntenToew;
 
     @FXML
-    private Label labelPuntenPuntenToew;
-
-    @FXML
-    private TextField textfieldPuntenPuntenToew;
-
-    @FXML
     private Label labelProefVnStPuntenToew;
-    
-    @FXML
-    private TableView<BP> bpTabel;
 
-    @FXML
-    private TableColumn<BP, String> titelKolom;
-
-    @FXML
-    private TableColumn<BP, String> beschrijvingKolom;
-
-    @FXML
-    private TableView<KeuzeProp> tabelKeuze;
-
-    @FXML
-    private TableColumn<KeuzeProp, String> kolomKeuzeNaam;
-
-    @FXML
-    private TableColumn<KeuzeProp, String> kolomKeuzeProef;
-
-    @FXML
-    private TableColumn<KeuzeProp, Number> kolomKeuzePunten;
-
-    @FXML
-    private ComboBox<String> comboboxNaamKeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze1KeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze2KeuzeT;
-
-    @FXML
-    private ComboBox<String> comboboxKeuze3KeuzeT;
-    
-    @FXML
-    private TableView<KeuzeStudentProp> tabelKeuzeSt;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStStudent;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze1;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze2;
-
-    @FXML
-    private TableColumn<KeuzeStudentProp, String> kolomKeuzeStKeuze3;
-    
-    @FXML
-    private ComboBox<String> comboboxStudentKeuzeToew;
-
-    @FXML
-    private ComboBox<String> comboboxKeuzeKeuzeToew;
-    
-    @FXML
-    private Label labelOkeKeuzeToewijzen;
-    
-    @FXML
-    private Label labelFoutKeuzeToew2;
-    
     @FXML
     private Label labelFoutPuntenToew;
-    
+
     @FXML
     private Label labelToegewPuntenToew;
-    
+
     @FXML
     private AnchorPane keuzeVerwijderen;
 
@@ -392,13 +392,10 @@ public class FXMLDocumentController {
 
     @FXML
     private Button HoofdmenuKeuzeVerw;
-  
-    @FXML
-    private Button knopNaarKeuzeVerwijderen;
-    
+
     @FXML
     private Label labelKeuzeVerw;
-    
+
     @FXML
     private AnchorPane bevestigPane;
 
@@ -442,6 +439,7 @@ public class FXMLDocumentController {
         labelFoutKeuzeT.setVisible(false);
         labelFoutDocent.setVisible(false);
         labelOpgeslagen.setVisible(false);
+        labelFoutBpToev.setVisible(false);
         labelNaamAlIngediend.setVisible(false);
         labelFoutKeuzeToew.setVisible(false);
         labelFoutKeuzeToew1.setVisible(false);
@@ -454,8 +452,11 @@ public class FXMLDocumentController {
         labelToegewPuntenToew.setVisible(false); 
         labelKeuzeVerw.setVisible(false);
         
-        ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
+        /*ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
         comboboxStudentPuntenToew.setItems(namen);
+        if(!namen.isEmpty()) {
+        comboboxStudentPuntenToew.setValue(namen.get(0));
+        }*/
         refresh();
     }
     
@@ -475,8 +476,8 @@ public class FXMLDocumentController {
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
         //knoppen BPtoevoegen
         voegBPtoe.setOnAction(event -> voegBPToe());
-        terugknopBpToevoegen.setOnAction(event-> initialize());
-        knopTerugLijstBp.setOnAction(event->{bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false); actiesDocent.setVisible(true);});
+        terugknopBpToevoegen.setOnAction(event-> {hoofdmenu.setVisible(true); bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false); labelFoutBpToev.setVisible(false);});
+        knopTerugLijstBp.setOnAction(event->{bpToevoegen.setVisible(false); labelOpgeslagen.setVisible(false); actiesDocent.setVisible(true); labelFoutBpToev.setVisible(false);});
         //Knoppen lijstKeuzes
         sorteerknopNaam.setOnAction(event -> vulTabelKeuzeOpNaam());
         sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
@@ -484,16 +485,16 @@ public class FXMLDocumentController {
         terugknopLijstKeuzes.setOnAction(event ->{hoofdmenu.setVisible(true);lijstKeuze.setVisible(false);});
         //knoppen keuzeToevoegen
         knopBevestigenKeuzeT.setOnAction(event ->{voegKeuzeToe();});
-        terugKeuzeT.setOnAction(event->initialize());
+        terugKeuzeT.setOnAction(event ->{hoofdmenu.setVisible(true);keuzeToevoegen.setVisible(false);});
         //knoppen inloggenDocent
         knopInloggenD.setOnAction(event ->{if(controlerenDocent()){inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false); actiesDocent.setVisible(true);}});
         knopHoofdmenuInlD.setOnAction(event ->{hoofdmenu.setVisible(true);inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false);});
         //knoppen acties docenten
         knopNaarBpToevoegen.setOnAction(event ->{actiesDocent.setVisible(false);bpToevoegen.setVisible(true);});
         knopNaarKeuzeToewijzen.setOnAction(event -> {actiesDocent.setVisible(false); keuzeToewijzen.setVisible(true); keuzeToewijzen();});
-        knopHoofdmenuActiesDocenten.setOnAction(event -> initialize());
+        knopHoofdmenuActiesDocenten.setOnAction(event -> {hoofdmenu.setVisible(true); actiesDocent.setVisible(false);});
         knopNaarStudentToevoegen.setOnAction(event ->{actiesDocent.setVisible(false); studentToevoegen.setVisible(true);});
-        knopNaarPuntenToewijzen.setOnAction(event->{actiesDocent.setVisible(false); puntenToewijzen.setVisible(true); puntenToewijzen();});
+        knopNaarPuntenToewijzen.setOnAction(event->{actiesDocent.setVisible(false); puntenToewijzen.setVisible(true);comboboxStudentPuntenToew.setItems(FXCollections.observableArrayList(modelKeuze.getStudenten()));});
         knopNaarKeuzeVerwijderen.setOnAction(event ->{actiesDocent.setVisible(false); keuzeVerwijderen.setVisible(true);
             comboboxStudentKeuzeVerw.setItems(FXCollections.observableArrayList(modelKeuze.getStudenten()));});
         //knoppen naar lijstKeuzeSt
@@ -503,13 +504,13 @@ public class FXMLDocumentController {
         knopkeuzeStSortKeuze3.setOnAction(event ->{vulTabelKeuzeStOpKeuze3();});
         knopHoofdmenuKeuzeSt.setOnAction(event ->{hoofdmenu.setVisible(true); LijstKeuzeSt.setVisible(false);});
         //knoppen lijst toegewezen keuzes
-        terugknopLijstKeuzes.setOnAction(event-> initialize());
+        terugknopLijstKeuzes.setOnAction(event-> {hoofdmenu.setVisible(true); lijstKeuze.setVisible(false);});
         sorteerknopNaam.setOnAction(event -> vulTabelKeuzeOpNaam());
         sorteerknopProef.setOnAction(event -> vulTabelKeuzeOpProef());
         sorteerknopPunten.setOnAction(event -> vulTabelKeuzeOpPunten());
         //knoppen keuze toewijzen
         knopBevestigenKeuzeToew.setOnAction(event->voegDefKeuzeToe());
-        knopHoofdmenuKeuzeToev.setOnAction(event -> initialize());
+        knopHoofdmenuKeuzeToev.setOnAction(event -> {hoofdmenu.setVisible(true);keuzeToewijzen.setVisible(false);});
         knopTerugKeuzeToewijzen.setOnAction(event ->{actiesDocent.setVisible(true); keuzeToewijzen.setVisible(false);});
         comboboxStudentKeuzeToew.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             String naam = comboboxStudentKeuzeToew.getValue();
@@ -517,24 +518,17 @@ public class FXMLDocumentController {
             comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);
             /*comboboxKeuzeKeuzeToew.setValue());*/}); 
         //knoppen student toevoegen
-        terugNaarHoofdmStudToev.setOnAction(event -> initialize());
+        terugNaarHoofdmStudToev.setOnAction(event -> {hoofdmenu.setVisible(true); studentToevoegen.setVisible(false);});
         terugknopStudToev.setOnAction(event->{actiesDocent.setVisible(true); studentToevoegen.setVisible(false);});
         bevestigknopStudToev.setOnAction(event->studentToevoegen());
         //knoppen punten toewijzen
-        HoofdmenuPuntenToew.setOnAction(event->initialize());
+        HoofdmenuPuntenToew.setOnAction(event->{puntenToewijzen.setVisible(false); hoofdmenu.setVisible(true); labelFoutPuntenToew.setVisible(false);
+            labelToegewPuntenToew.setVisible(false);});
         terugknopPuntenToew.setOnAction(event ->{actiesDocent.setVisible(true); puntenToewijzen.setVisible(false);});
         bevestigknopPuntenToew.setOnAction(event->bevestigPuntenToewijzen());
-        //comboboxStudentPuntenToew.
-        //if(comboboxStudentPuntenToew.getValue().equals(null)){
-        comboboxStudentPuntenToew.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));}); 
-        /*}
-        else {
-            labelProefInTeVullenPuntenToew.setText("");
-        }*/
         //knoppen keuze verwijderen
         terugknopKeuzeVerw.setOnAction(event ->{actiesDocent.setVisible(true); keuzeVerwijderen.setVisible(false); labelKeuzeVerw.setVisible(false);});
-        HoofdmenuKeuzeVerw.setOnAction(event ->initialize());
+        HoofdmenuKeuzeVerw.setOnAction(event -> {hoofdmenu.setVisible(true);keuzeVerwijderen.setVisible(false);});
         bevestigknopKeuzeVerw.setOnAction(event ->{keuzeVerwijderen.setVisible(false); bevestigPane.setVisible(true);});
         //knoppen bevestigpane
         knopBevestigBevestigPane.setOnAction(event ->keuzeVerwijderen());
@@ -552,18 +546,7 @@ public class FXMLDocumentController {
         comboboxStudentKeuzeVerw.setItems(FXCollections.observableArrayList(modelKeuze.getStudenten()));
         labelKeuzeVerw.setVisible(true);
     }
-    
-    /**
-     * functie om het anchorpane punten toewijzen te laden 
-     */
-    public void puntenToewijzen() {
-        ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
-        comboboxStudentPuntenToew.setItems(namen);
-        comboboxStudentPuntenToew.setValue(namen.get(0));
-        labelFoutPuntenToew.setVisible(false);
-        labelToegewPuntenToew.setVisible(false);
-    }
-    
+        
     /**
      * functie om de ingevulde punten toe te wijzen aan de ingevulde student
      */
@@ -792,6 +775,8 @@ public class FXMLDocumentController {
         comboboxKeuze1KeuzeT.setItems(bps);
         comboboxKeuze2KeuzeT.setItems(bps);
         comboboxKeuze3KeuzeT.setItems(bps);
+        labelNaamAlIngediend.setVisible(false);
+        labelFoutKeuzeT.setVisible(false);
     }
        
     /**
@@ -811,7 +796,9 @@ public class FXMLDocumentController {
             if(controlerenWachtwoordStudent(naam, paswoord)) {
                 if(keuze1!=keuze2 || keuze1!=keuze3 || keuze2!=keuze3) {
                     modelKeuzeSt.voegKeuzesStToe(naam, keuze1, keuze2, keuze3);
-                    initialize();
+                    hoofdmenu.setVisible(true);
+                    keuzeToevoegen.setVisible(false);
+                    labelFoutKeuzeT.setVisible(true);
                 }
                 else {labelFoutKeuzeT.setVisible(true);}
             }
@@ -848,11 +835,18 @@ public class FXMLDocumentController {
      * Functie om een BP toe te voegen 
      */
     public void voegBPToe(){
-        Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
-                                                beschrijvingen.getText());
-        modelBp.voegToe(nieuw);
-        ArrayList<Bachelorproef> alles = modelBp.getProeven();
-        labelOpgeslagen.setVisible(true);
+        if(!titel.getText().isEmpty() && !beschrijvingen.getText().isEmpty()) {
+            Bachelorproef nieuw = new Bachelorproef(titel.getText(), 
+                                                    beschrijvingen.getText());
+            modelBp.voegToe(nieuw);
+            ArrayList<Bachelorproef> alles = modelBp.getProeven();
+            labelOpgeslagen.setVisible(true);
+            labelFoutBpToev.setVisible(false);
+        }
+        else {
+            labelOpgeslagen.setVisible(false);
+            labelFoutBpToev.setVisible(true);
+        }
     }
     
     /**
