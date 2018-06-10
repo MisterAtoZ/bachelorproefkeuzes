@@ -453,6 +453,9 @@ public class FXMLDocumentController {
         labelFoutPuntenToew.setVisible(false);
         labelToegewPuntenToew.setVisible(false); 
         labelKeuzeVerw.setVisible(false);
+        
+        ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
+        comboboxStudentPuntenToew.setItems(namen);
         refresh();
     }
     
@@ -483,7 +486,7 @@ public class FXMLDocumentController {
         knopBevestigenKeuzeT.setOnAction(event ->{voegKeuzeToe();});
         terugKeuzeT.setOnAction(event->initialize());
         //knoppen inloggenDocent
-        knopInloggenD.setOnAction(event ->{if(controlerenDocent()==true){inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false); actiesDocent.setVisible(true);}});
+        knopInloggenD.setOnAction(event ->{if(controlerenDocent()){inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false); actiesDocent.setVisible(true);}});
         knopHoofdmenuInlD.setOnAction(event ->{hoofdmenu.setVisible(true);inloggenDocent.setVisible(false);labelFoutDocent.setVisible(false);});
         //knoppen acties docenten
         knopNaarBpToevoegen.setOnAction(event ->{actiesDocent.setVisible(false);bpToevoegen.setVisible(true);});
@@ -522,8 +525,13 @@ public class FXMLDocumentController {
         terugknopPuntenToew.setOnAction(event ->{actiesDocent.setVisible(true); puntenToewijzen.setVisible(false);});
         bevestigknopPuntenToew.setOnAction(event->bevestigPuntenToewijzen());
         //comboboxStudentPuntenToew.
+        //if(comboboxStudentPuntenToew.getValue().equals(null)){
         comboboxStudentPuntenToew.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));}); 
+        /*}
+        else {
+            labelProefInTeVullenPuntenToew.setText("");
+        }*/
         //knoppen keuze verwijderen
         terugknopKeuzeVerw.setOnAction(event ->{actiesDocent.setVisible(true); keuzeVerwijderen.setVisible(false); labelKeuzeVerw.setVisible(false);});
         HoofdmenuKeuzeVerw.setOnAction(event ->initialize());
@@ -551,9 +559,7 @@ public class FXMLDocumentController {
     public void puntenToewijzen() {
         ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
         comboboxStudentPuntenToew.setItems(namen);
-        //comboboxStudentPuntenToew.setValue(namen.get(0));
-        //functie maken om bij een bepaakde student de keuzen eruit te halen
-        //labelProefInTeVullenPuntenToew.setText(modelKeuze.getProef(comboboxStudentPuntenToew.getValue()).get(0));
+        comboboxStudentPuntenToew.setValue(namen.get(0));
         labelFoutPuntenToew.setVisible(false);
         labelToegewPuntenToew.setVisible(false);
     }
@@ -758,15 +764,20 @@ public class FXMLDocumentController {
         String paswoord = textfieldPaswoordInlD.getText();
 
         ObservableList<Docent> docenten = FXCollections.observableArrayList(modelDocent.getDocenten());
-        for (int i=0; i<docenten.size();i++) {
-            if(docenten.get(i).getNaam().equals(naam) && docenten.get(i).getPaswoord().equals(paswoord)) {
-                return true;
-            }
-            else {
-                labelFoutDocent.setVisible(true);
-                return false;
-            }
-        } 
+        if(!docenten.isEmpty()) {
+            for (int i=0; i<docenten.size();i++) {
+                if(docenten.get(i).getNaam().equals(naam)) {
+                    if(docenten.get(i).getPaswoord().equals(paswoord)) {
+                        labelFoutDocent.setVisible(false);
+                        return true;
+                    }
+                }
+            } 
+        }
+        else {
+            labelFoutDocent.setVisible(true);
+            return false;
+        }
         return false;
     }
     

@@ -10,3 +10,4 @@
 					*De keuzes van de studenten toewijzen
 					*Toegewezen keuzes uit de tabel verwijderen
 					*Punten toewijzen per student
+*Alle wachtwoorden van zowel de studenten als de docenten zijn de naam+1, bvb: naam: ben paswoord: ben1
