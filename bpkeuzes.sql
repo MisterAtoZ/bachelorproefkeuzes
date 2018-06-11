@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 jun 2018 om 17:15
+-- Gegenereerd op: 11 jun 2018 om 12:21
 -- Serverversie: 10.1.32-MariaDB
 -- PHP-versie: 7.2.5
 
@@ -67,8 +67,7 @@ CREATE TABLE `docent` (
 
 INSERT INTO `docent` (`ID`, `naam`, `paswoord`) VALUES
 (2, 'admin', 'admin1'),
-(3, 'docent', 'docent1'),
-(4, 'flip', 'flop');
+(3, 'docent', 'docent1');
 
 -- --------------------------------------------------------
 
@@ -88,14 +87,12 @@ CREATE TABLE `keuze` (
 
 INSERT INTO `keuze` (`student`, `proef`, `punten`) VALUES
 ('an', 'SQL-structuur maken voor een eetdag', 18),
-('bas', 'Greedy algoritme ', 0),
+('bas', 'Greedy algoritme ', 14),
 ('ben', 'Verdeel en heers algoritme ', 0),
 ('hans', 'Research naar PV-installatie', 14),
-('jan', 'App maken voor toledo', 0),
-('karel', 'Backtracking algoritme ', 0),
 ('peter', 'Research naar PV-installatie', 14),
-('piet', 'Een sql database maken', 0),
-('willie', 'Optische detectie van de concentratie van micro- en nanodeeltjes in een vloeistof', 0);
+('piet', 'Een sql database maken', 17),
+('willie', 'Optische detectie van de concentratie van micro- en nanodeeltjes in een vloeistof', 13);
 
 -- --------------------------------------------------------
 
