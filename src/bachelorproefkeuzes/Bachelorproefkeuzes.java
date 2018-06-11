@@ -38,9 +38,5 @@ public class Bachelorproefkeuzes extends Application {
         }
         
         launch(args);
-    }
-        
-        
-    
-    
+    }   
 }

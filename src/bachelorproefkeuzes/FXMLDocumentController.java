@@ -451,12 +451,6 @@ public class FXMLDocumentController {
         labelFoutPuntenToew.setVisible(false);
         labelToegewPuntenToew.setVisible(false); 
         labelKeuzeVerw.setVisible(false);
-        
-        /*ObservableList<String> namen = FXCollections.observableArrayList(modelKeuze.getStudenten());
-        comboboxStudentPuntenToew.setItems(namen);
-        if(!namen.isEmpty()) {
-        comboboxStudentPuntenToew.setValue(namen.get(0));
-        }*/
         refresh();
     }
     
@@ -467,11 +461,10 @@ public class FXMLDocumentController {
     public void refresh() {
         //knoppen hoofdmenu
         knopNaarLijstBp.setOnAction(event ->{hoofdmenu.setVisible(false); lijstBp.setVisible(true);vulTabelBp();});
-        knopNaarInloggenDocent.setOnAction(event ->{hoofdmenu.setVisible(false);inloggenDocent.setVisible(true);});//gaat naar inlogscherm docent
+        knopNaarInloggenDocent.setOnAction(event ->{hoofdmenu.setVisible(false);inloggenDocent.setVisible(true);});
         knopNaarLijstKeuzesSt.setOnAction(event ->{hoofdmenu.setVisible(false);LijstKeuzeSt.setVisible(true);vulTabelKeuzeStOpStudent();});
-        knopNaarKeuzeIndienen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});//keuze aanpassen, dat iedere student maar 1 keer kan toevoegen
+        knopNaarKeuzeIndienen.setOnAction(event ->{hoofdmenu.setVisible(false);keuzeToevoegen.setVisible(true);keuzeToevoegen();});
         knopNaarLijstToewijzigingenkeuzes.setOnAction(event ->{hoofdmenu.setVisible(false); lijstKeuze.setVisible(true);vulTabelKeuzeOpNaam();});
-        //knopNaarStudentToevoegen nog maken!
         //knoppen lijstBp
         terugknopLijst.setOnAction(event->{hoofdmenu.setVisible(true); lijstBp.setVisible(false);bpToevoegen.setVisible(false);});
         //knoppen BPtoevoegen
@@ -515,8 +508,7 @@ public class FXMLDocumentController {
         comboboxStudentKeuzeToew.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
             String naam = comboboxStudentKeuzeToew.getValue();
             ObservableList<String> keuzesVanStudent = FXCollections.observableArrayList(modelKeuzeSt.getKeuzesVanStudent(naam));
-            comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);
-            /*comboboxKeuzeKeuzeToew.setValue());*/}); 
+            comboboxKeuzeKeuzeToew.setItems(keuzesVanStudent);}); 
         //knoppen student toevoegen
         terugNaarHoofdmStudToev.setOnAction(event -> {hoofdmenu.setVisible(true); studentToevoegen.setVisible(false);});
         terugknopStudToev.setOnAction(event->{actiesDocent.setVisible(true); studentToevoegen.setVisible(false);});
@@ -536,7 +528,7 @@ public class FXMLDocumentController {
     }
     
     /**
-     * Functie om alles aan te passen nadat er een keuze is verwijdert
+     * Functie om alles aan te passen nadat er een keuze is verwijderd
      */
     public void keuzeVerwijderen() {
         modelKeuze.deleteKeuze(comboboxStudentKeuzeVerw.getValue());
@@ -555,20 +547,20 @@ public class FXMLDocumentController {
         
         try{
         int num = Integer.parseInt(puntenSt);
-            // is an integer!
-            int punten = Integer.parseInt(puntenSt);
-            if(punten > 20 || punten < 0) {
-                //gaat niet
-                labelFoutPuntenToew.setVisible(true);
-                labelToegewPuntenToew.setVisible(false);
-            }
+        // is an integer!
+        int punten = Integer.parseInt(puntenSt);
+        if(punten > 20 || punten < 0) {
+            //Punt niet goed, gaat niet
+            labelFoutPuntenToew.setVisible(true);
+            labelToegewPuntenToew.setVisible(false);
+        }
         else {
-                //functie maken voor de sqls
-                String student = comboboxStudentPuntenToew.getValue();
-                modelKeuze.updatePunten(punten, student);
-                labelFoutPuntenToew.setVisible(false);
-                labelToegewPuntenToew.setVisible(true);
-            }
+            //functie maken voor de sqls
+            String student = comboboxStudentPuntenToew.getValue();
+            modelKeuze.updatePunten(punten, student);
+            labelFoutPuntenToew.setVisible(false);
+            labelToegewPuntenToew.setVisible(true);
+        }
         } catch (NumberFormatException e) {
             // not an integer!
             labelFoutPuntenToew.setVisible(true);
@@ -624,9 +616,9 @@ public class FXMLDocumentController {
             comboboxStudentKeuzeToew.setItems(defNamen);
         }
         else {
-        comboboxStudentKeuzeToew.setItems(defNamen);
-        comboboxStudentKeuzeToew.setValue(defNamen.get(0));
-        labelFoutKeuzeToew2.setVisible(false);
+            comboboxStudentKeuzeToew.setItems(defNamen);
+            comboboxStudentKeuzeToew.setValue(defNamen.get(0));
+            labelFoutKeuzeToew2.setVisible(false);
         }
     }
     
@@ -646,8 +638,6 @@ public class FXMLDocumentController {
             keuzeToewijzen();
         }
         else {
-            //controleren of de student al in de lijst zit
-            //keuze toevoegen
             ObservableList<String> namenInLijst = FXCollections.observableArrayList(modelKeuze.getStudenten());
         
             if(namenInLijst.contains(student)){
@@ -802,7 +792,7 @@ public class FXMLDocumentController {
                 }
                 else {labelFoutKeuzeT.setVisible(true);}
             }
-            else{labelFoutKeuzeT.setVisible(true);}//verkeerde ww}}
+            else{labelFoutKeuzeT.setVisible(true);}
         }
         else {
             //de naam zit al in de lijst en kan niet nog eens worden toegevoegd
@@ -812,7 +802,7 @@ public class FXMLDocumentController {
     }
     
     /**
-     * functie om te controleren of het ingegeven paswoord van de student klopt
+     * Functie om te controleren of het ingegeven paswoord van de student klopt
      * 
      * @param naam van de student
      * @param paswoord van de student

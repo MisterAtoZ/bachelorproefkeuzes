@@ -1,5 +1,7 @@
 **# Database voor bachelorproeven**
 =====================================================
+* Voor het programma kan worden gebruikt moet de bijgevoegde sql-file worden ingeladen in de localhost
+* In de map dist kan de .exe file worden gevonden, deze start het programma op
 * In het programma is er een verschil tussen een student en een docent
 	* Een student kan:
 		* Zijn/haar drie keuzes doorgeven, deze komen dan in de tabel keuzestudent

@@ -37,9 +37,7 @@ public class StudentDB {
      * @param student die moet worden toegevoegd in de database
      */
     public void voegStudToe(Student student){
-        String sql = "insert into student (naam,paswoord)" + "values (?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
-        // en om te vermijden da een tabel wordt verwijderd door iemand
-        
+        String sql = "insert into student (naam,paswoord)" + "values (?,?)";
         PreparedStatement stmt;
         try {
             stmt = connectie.prepareStatement(sql,
@@ -108,7 +106,7 @@ public class StudentDB {
     
     /**
      * Functie om de naam van de student uit de database te halen
-     * gebruikt voor de comboboxen te vullen
+     * Wordt gebruikt voor de comboboxen te vullen
      * 
      * @return ArrayList met de namen 
      */

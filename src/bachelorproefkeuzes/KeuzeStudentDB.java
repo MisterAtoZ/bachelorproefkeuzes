@@ -92,8 +92,7 @@ public class KeuzeStudentDB {
      * @param keuze3 die de student heeft gekozen
      */
     public void voegKeuzesStToe(String naam, String keuze1, String keuze2, String keuze3) {
-        String sql = "insert into keuzestudent (student,keuze1,keuze2,keuze3)" + "values (?,?,?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
-        // en om te vermijden da een tabel wordt verwijderd door iemand
+        String sql = "insert into keuzestudent (student,keuze1,keuze2,keuze3)" + "values (?,?,?,?)";
         
         PreparedStatement stmt;
         try {

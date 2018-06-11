@@ -104,8 +104,7 @@ public class KeuzeDB {
      * @param punten die worden toegewezen 
      */
     public void voegKeuzesToe(String naam, String proef, int punten) {
-        String sql = "insert into keuze (student,proef,punten)" + "values (?,?,?)"; //op vraagteken moet nog concrete data worden ingevoegd ergens anders
-        // en om te vermijden da een tabel wordt verwijderd door iemand
+        String sql = "insert into keuze (student,proef,punten)" + "values (?,?,?)";
         
         PreparedStatement stmt;
         try {
